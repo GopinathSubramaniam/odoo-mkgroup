@@ -3,7 +3,7 @@
     "version": "18.0.1.0",
     "author": "Sygmetiv",
     "website": "https://www.sygmetiv.com",
-    "depends": ['base', 'web', 'account' ],
+    "depends": ['base', 'web', 'account', 'purchase', 'sale', 'stock'],
     "data": [
         "views/invoice_report.xml",
     ],
