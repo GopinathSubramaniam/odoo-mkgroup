@@ -227,10 +227,10 @@
                                         Contract/PO No
                                         (رقم أمر الشراء)
                                     </th>
-                                    <!-- <th>
+                                    <th>
                                         Due Date
                                         (تاريخ االستحقاق)
-                                    </th> -->
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -244,9 +244,9 @@
                                     <td>
                                         <t t-esc="o.ref" />
                                     </td>
-                                    <!-- <td>
+                                    <td>
                                         <t t-esc="o.invoice_date_due" />
-                                    </td> -->
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
