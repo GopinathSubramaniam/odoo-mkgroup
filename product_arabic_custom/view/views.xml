@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_product_form">
+            <field name="name">product.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+                    <h1>
+                        <field name="arabic_name" placeholder="Arabic Name" invisible="0"/>
+                    </h1>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_company_form_inherited_cstm" model="ir.ui.view">
+            <field name="name">res.company.form.ihrtd</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='currency_id']" position="after">
+                        <!--                    <field name="header_footer_in_report"/>-->
+                        <label for="header_img" string="Header Image"/>
+                        <div class="d-flex mx-2">
+                            <field name="header_img" widget="image" class="oe_avatar"/>
+                            <span class="o_form_label mx-3 oe_edit_only">
+                                (1175px X 150px)
+                            </span>
+                        </div>
+
+                        <label for="footer_img" string="Footer Image"/>
+                        <div class="d-flex mx-2">
+                            <field name="footer_img" widget="image" class="oe_avatar"/>
+                            <span class="o_form_label mx-3 oe_edit_only">
+                                (1310px X 134px)
+                            </span>
+                        </div>
+
+
+                        <label for="company_seal_img" string="Company Seal Image"/>
+                        <div class="d-flex mx-2">
+                            <field name="company_seal_img" widget="image" class="oe_avatar"/>
+                            <span class="o_form_label mx-3 oe_edit_only">
+                                (1310px X 134px)
+                            </span>
+                        </div>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

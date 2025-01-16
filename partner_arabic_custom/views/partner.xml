@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_partner_form_custom">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+                    <h1>
+                        <field id="company" class="o_text_overflow" name="arabic_name"/>
+                    </h1>
+                </xpath>
+                <xpath expr="//div[@class='o_address_format']" position="after">
+                    <span class="o_form_label o_td_label" name="arabic_address_name">
+                        <field name="type"
+                               class="font-weight-bold"/>
+                        <b>Address In Arabic</b>
+                    </span>
+                    <div class="o_address_format">
+                        <field name="arabic_street" placeholder="Arabic Street..." class="o_address_street"
+                               />
+                        <field name="arabic_street2" placeholder="Arabic Street 2..." class="o_address_street"
+                               />
+                        <!--                        <field name="arabic_city" placeholder="Arabic City" class="o_address_city"-->
+                        <!--                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>-->
+                        <!--                        <field name="arabic_state" class="o_address_state" placeholder="Arabic State" style="width:33%%"/>-->
+                        <!--                        <field name="arabic_zip" placeholder="Arabic ZIP" class="o_address_zip"-->
+                        <!--                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>-->
+                        <!--                        <field name="arabic_country" placeholder="Arabic Country" class="o_address_country"/>-->
+                    </div>
+                </xpath>
+                <field name="vat" position="after">
+                    <field name="cr_number"/>
+                    <field name="p_vendor_id"/>
+                </field>
+            </field>
+        </record>
+
+<!--        <record model="ir.ui.view" id="view_partner_tree_custom">-->
+<!--            <field name="name">res.partner.tree</field>-->
+<!--            <field name="model">res.partner</field>-->
+<!--            <field name="inherit_id" ref="base.view_partner_tree"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--&lt;!&ndash;                <xpath expr="//field[@name='name']" position="before">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <field name="arabic_name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </xpath>&ndash;&gt;-->
+<!--&lt;!&ndash;                <xpath expr="//field[@name='name']" position="attributes">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <attribute name="optional">True</attribute>&ndash;&gt;-->
+<!--&lt;!&ndash;                </xpath>&ndash;&gt;-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record model="ir.ui.view" id="view_partner_kanban_custom">-->
+<!--            <field name="name">res.partner.kanban</field>-->
+<!--            <field name="model">res.partner</field>-->
+<!--            <field name="inherit_id" ref="base.res_partner_kanban_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//div[@class='o_kanban_tags_section oe_kanban_partner_categories']" position="before">-->
+<!--                    <strong class="o_kanban_record_title oe_partner_heading">-->
+<!--                        <field name="arabic_name"/>-->
+<!--                    </strong>-->
+
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+    </data>
+</odoo>
