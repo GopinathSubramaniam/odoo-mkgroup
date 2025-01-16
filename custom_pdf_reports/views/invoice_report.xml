@@ -578,7 +578,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                         <div class="col-6">
                             <div class="d-flex">
                                 <div class="qrcode me-3" id="qrcode_image">
@@ -599,7 +599,7 @@
                             <img t-att-src="'/web/content/' + str(460)" class="w-25" />
                             <img t-att-src="'/web/content/' + str(463)" class="w-25" />
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mb-3">
                         <div class="col-6">
                             <table class="table table-bordered custom_table">
