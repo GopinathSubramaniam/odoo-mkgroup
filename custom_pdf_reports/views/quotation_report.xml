@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+
+    <!-- SO -->
+    <template id="report_so_custom" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+
+            <t t-call="web.external_layout">
+
+                <style>
+                    .sale_tbody tr th,
+                    .sale_tbody tr td{
+                    height: 18px !important;
+                    }
+
+                    .sale_thead{
+                    background-color: #ffc134;
+                    }
+
+                    .informations_text{
+                    color: #af7d0c;
+                    }
+                    .customer_details{
+                    font-size: 20px;
+                    }
+                </style>
+                <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+                <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat" /> <!-- So that it
+                appears in the footer of the report instead of the company VAT if it's set -->
+
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <h2 class="mt-2 text-center text-uppercase informations_text">
+                            <strong>
+                                <span t-if="env.context.get('proforma', False) or is_pro_forma">
+                                    <span t-esc="'Pro-Forma Invoice'" />
+                                </span>
+                                <span t-elif="doc.state in ['draft','sent']">
+                                    <span t-esc="'Quotation'" />
+                                </span>
+                                <span t-else="">
+                                    <span t-esc="'Order Confirmation'" />
+                                </span>
+                            </strong>
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start mt-5">
+                    <div class="col-12">
+                        <div class="row mt-2 mb-2" id="informations">
+                            <div class="col mb-2">
+                                <h4 class="informations_text">
+                                    <span t-if="doc.state in ['draft', 'sent']">
+                                        <span t-esc="'Quotation No. '" />
+                                    </span>
+                                    <span t-if="doc.state in ['sale']">
+                                        <span t-esc="'Order No. '" />
+                                    </span>
+                                    <span t-field="doc.name">SO0000</span>
+                                </h4>
+                            </div>
+                            <div t-if="doc.date_order" class="col mb-2" name="informations_date">
+                                <h4 class="informations_text">
+                                    <span t-if="doc.state in ['draft', 'sent']">
+                                        <span t-esc="'Date: '" />
+                                    </span>
+                                    <span t-else="">
+                                        <span t-esc="'Order Date:'" />
+                                    </span>
+                                    <span class="m-0" t-field="doc.date_order"
+                                        t-options="{&quot;widget&quot;: &quot;date&quot;}">
+                                        2023-12-31</span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row justify-content-end">
+                    <div class="col-6">
+                        <div class="row mt-2 mb-2" id="informations">
+                            <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2" name="informations_reference">
+                                <strong><span t-esc="'Your Reference:'"/></strong>
+                                <br/>
+                                <span class="m-0" t-field="doc.client_order_ref">SO0000</span>
+                            </div>
+                            <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2"
+                name="expiration_date">
+                                <strong><span t-esc="'Expiration:'"/></strong>
+                                <br/>
+                                <span class="m-0" t-field="doc.validity_date">2023-12-31</span>
+                            </div>
+                            <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                                <strong><span t-esc="'Salesperson:'"/></strong>
+                                <br/>
+                                <span class="m-0" t-field="doc.user_id">Mitchell Admin</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+
+                <t
+                    t-if="doc.partner_shipping_id == doc.partner_invoice_id or doc.partner_shipping_id != doc.partner_invoice_id">
+                    <div class="row">
+                        <!-- <t>
+                            <div class="col-6">
+                                <strong><span t-esc="'Shipping Address:'"/></strong>
+                                <div class="m-1" t-field="doc.partner_shipping_id" t-options="{&quot;widget&quot;:
+                        &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,
+                        &quot;name&quot;, &quot;vat&quot;, &quot;phone&quot;],
+                        &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>                        
+                            </div>
+                        </t> -->
+                        <!-- <div class="col-6">
+                            <strong style="font-weight:bold !important;"><span t-esc="'Invoicing Address:'"/></strong>
+                            <div class="m-1" t-field="doc.partner_invoice_id" t-options="{&quot;widget&quot;:
+                        &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,
+                        &quot;name&quot;, &quot;vat&quot;, &quot;phone&quot;],
+                        &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                        </div> -->
+                        <div class="col-12">
+                            <h4>
+                                <u>Customer Details</u>
+                            </h4>
+                            <p class="customer_details">
+                                <strong>
+                                    <span t-esc="doc.partner_id.name" />
+                                </strong>
+                                <br />
+                                <span t-esc="doc.partner_id.street" />
+                                <br />
+                                <span t-esc="doc.partner_id.street2" />
+                                <br />
+                                <span t-if="doc.partner_id.state_id"
+                                    t-esc="doc.partner_id.state_id.name+', '" />
+                                <span t-if="doc.partner_id.country_id"
+                                    t-esc="doc.partner_id.country_id.name" />
+                                <span t-if="doc.partner_id.zip" t-esc="doc.partner_id.zip+'- '" />
+                                <br />
+                                <span t-if="doc.partner_id.vat"
+                                    t-esc="'VAT Number: '+doc.partner_id.vat" />
+                                <span t-if="doc.partner_id.company_registry"
+                                    t-esc="', CRN: '+doc.partner_id.company_registry" />
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div t-if="doc.incoterm" class="col-auto col-3 mw-100 mb-2"
+                            name="informations_date">
+                            <strong>
+                                <span t-esc="'Delivery Terms:'" />
+                            </strong>
+                            <br />
+                            <span class="m-0">
+                                <span t-esc="doc.incoterm.code+' - '+doc.incoterm.name" />
+                            </span>
+                        </div>
+                        <div t-if="doc.payment_term_id" class="col-auto col-3 mw-100 mb-2">
+                            <strong>
+                                <span t-esc="'Payment Terms:'" />
+                            </strong>
+                            <br />
+                            <span t-field="doc.payment_term_id.name">The payment should also be
+                                transmitted with love</span>
+                        </div>
+                    </div>
+
+                </t>
+                <div class="page">
+                    <div class="oe_structure" />
+
+                    <!-- <div class="row mb-4" id="informations">
+                        <div t-if="doc.client_order_ref" class="col" name="informations_reference">
+                            <strong>Your Reference</strong>
+                            <div t-field="doc.client_order_ref">SO0000</div>
+                        </div>
+                        <div t-if="doc.date_order" class="col" name="informations_date">
+                            <strong t-if="is_proforma">Issued Date</strong>
+                            <strong t-elif="doc.state in ['draft', 'sent']">Quotation Date</strong>
+                            <strong t-else="">Order Date</strong>
+                            <div t-field="doc.date_order" t-options='{"widget": "date"}'>2023-12-31</div>
+                        </div>
+                        <div t-if="doc.validity_date and doc.state in ['draft', 'sent']"
+                            class="col"
+                            name="expiration_date">
+                            <strong>Expiration</strong>
+                            <div t-field="doc.validity_date">2023-12-31</div>
+                        </div>
+                        <div t-if="doc.user_id.name" class="col">
+                            <strong>Salesperson</strong>
+                            <div t-field="doc.user_id">Mitchell Admin</div>
+                        </div>
+                    </div> -->
+
+                    <!-- Is there a discount on at least one line? -->
+                    <t t-set="lines_to_report" t-value="doc._get_order_lines_to_report()" />
+                    <t t-set="display_discount" t-value="any(l.discount for l in lines_to_report)" />
+
+                    <div class="oe_structure"></div>
+                    <table class="o_has_total_table table o_main_table table-borderless">
+                        <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                        <thead style="display: table-row-group" class="sale_thead">
+                            <tr>
+                                <th name="th_index" class="text-center">SL No</th>
+                                <th name="th_description" class="text-start">DESCRIPTION</th>
+                                <th name="th_quantity" class="text-end text-nowrap">QUANTITY</th>
+                                <th name="th_quantity" class="text-end text-nowrap">UNIT</th>
+
+                                <th name="th_priceunit" class="text-end text-nowrap">UNIT PRICE</th>
+                                <th name="th_discount" t-if="display_discount" class="text-end">
+                                    <span>Disc.%</span>
+                                </th>
+                                <th name="th_taxes" class="text-end">VAT 15%</th>
+                                <th name="th_subtotal" class="text-end">
+                                    <span>Amount (SAR)</span>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="sale_tbody">
+
+                            <t t-set="current_subtotal" t-value="0" />
+                            <t t-set="index" t-value="1" />
+
+                            <t t-foreach="lines_to_report" t-as="line">
+
+                                <t t-set="current_subtotal"
+                                    t-value="current_subtotal + line.price_subtotal" />
+
+                                <tr
+                                    t-att-class="'fw-bold o_line_section' if (                                 line.display_type == 'line_section'                                 or line.product_type == 'combo'                             )                             else 'fst-italic o_line_note' if line.display_type == 'line_note'                             else ''">
+                                    <t t-if="not line.display_type and line.product_type != 'combo'">
+                                        <td name="td_index" class="text-center">
+                                            <span t-esc="index" />
+                                            <t t-set="index" t-value="index+1" />
+                                        </td>
+                                        <td name="td_name">
+                                            <span t-field="line.name">Bacon Burger</span>
+                                        </td>
+                                        <td name="td_quantity" class="text-end text-nowrap">
+                                            <span t-field="line.product_uom_qty">3</span>
+                                            <!-- <span t-field="line.product_uom_id">units</span> -->
+                                            <span t-if="line.product_packaging_id"> (<span
+                                                    t-field="line.product_packaging_qty"
+                                                    t-options="{&quot;widget&quot;: &quot;integer&quot;}" /> <span
+                                                    t-field="line.product_packaging_id" />) </span>
+                                        </td>
+                                        <td name="td_uom_id" class="text-end text-nowrap">
+                                            <span t-field="line.product_uom_id">units</span>
+                                        </td>
+                                        <td name="td_priceunit" class="text-end text-nowrap">
+                                            <span t-field="line.price_unit">3</span>
+                                        </td>
+                                        <td t-if="display_discount" class="text-end">
+                                            <span t-field="line.discount">-</span>
+                                        </td>
+                                        <t t-set="taxes"
+                                            t-value="', '.join([(tax.invoice_label or tax.name) for tax in line.tax_ids])" />
+                                        <!-- <td name="td_taxes"
+                                            t-attf-class="text-end {{ 'text-nowrap' if len(taxes) &lt; 10 else '' }}">
+                                            <span t-out="taxes">Tax 15%</span>
+                                        </td> -->
+                                        <td name="td_tax_amount" class="text-end o_price_total">
+                                            <span t-field="line.price_tax"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;}" />
+                                        </td>
+                                        <td t-if="not line.is_downpayment" name="td_subtotal"
+                                            class="text-end o_price_total">
+                                            <span t-field="line.price_subtotal">27.00</span>
+                                        </td>
+                                    </t>
+                                    <t
+                                        t-elif="line.display_type == 'line_section' or line.product_type == 'combo'">
+                                        <td name="td_section_line" colspan="99">
+                                            <span t-field="line.name">A section title</span>
+                                        </td>
+                                        <t t-set="current_section" t-value="line" />
+                                        <t t-set="current_subtotal" t-value="0" />
+                                    </t>
+                                    <t t-elif="line.display_type == 'line_note'">
+                                        <td name="td_note_line" colspan="99">
+                                            <span t-field="line.name">A note, whose content usually
+                                                applies to
+                                                the section or product above.</span>
+                                        </td>
+                                    </t>
+                                </tr>
+
+                                <t
+                                    t-if="current_section and (                                 line_last                                 or lines_to_report[line_index+1].display_type == 'line_section'                                 or lines_to_report[line_index+1].product_type == 'combo'                                 or (                                     line.combo_item_id                                     and not lines_to_report[line_index+1].combo_item_id                                 )                             ) and not line.is_downpayment">
+                                    <t t-set="current_section" t-value="None" />
+                                    <tr class="is-subtotal text-end">
+                                        <td name="td_section_subtotal" colspan="99">
+                                            <strong class="mr16">Subtotal</strong>
+                                            <span t-out="current_subtotal"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}">
+                                                31.05</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <!-- <t t-set="required_rows" t-value="10" />
+                            <t t-set="current_rows" t-value="len(lines_to_report)" />
+                            <t t-foreach="range(required_rows - current_rows)" t-as="empty_row">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td t-if="display_discount"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </t> -->
+                        </tbody>
+                    </table>
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row mt-n3" name="total">
+                            <div
+                                t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                                <table class="o_total_table table table-borderless">
+                                    <!-- Tax totals -->
+                                    <t t-call="sale.document_tax_totals">
+                                        <t t-set="tax_totals" t-value="doc.tax_totals" />
+                                        <t t-set="currency" t-value="doc.currency_id" />
+                                        <t t-set="custom_total_cols" t-value="7" />
+                                    </t>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure"></div>
+
+                    <div t-if="not doc.signature" class="oe_structure"></div>
+                    <div t-else="" class="mt-4 ml64 mr4" name="signature">
+                        <div class="offset-8">
+                            <strong>Signature</strong>
+                        </div>
+                        <div class="offset-8">
+                            <img t-att-src="image_data_uri(doc.signature)"
+                                style="max-height: 4cm; max-width: 8cm;" />
+                        </div>
+                        <div class="offset-8 text-center">
+                            <span t-field="doc.signed_by">Oscar Morgan</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span t-field="doc.note"
+                            t-attf-style="#{'text-align:justify;text-justify:inter-word;' if doc.company_id.terms_type != 'html' else ''}"
+                            name="order_note" />
+                        <p t-if="not is_html_empty(doc.payment_term_id.note)">
+                            <span t-field="doc.payment_term_id.note">The payment should also be
+                                transmitted with love</span>
+                        </p>
+                        <div class="oe_structure" />
+                        <p
+                            t-if="doc.fiscal_position_id and not is_html_empty(doc.fiscal_position_id.sudo().note)"
+                            id="fiscal_position_remark">
+                            <strong>Fiscal Position Remark:</strong>
+                            <span t-field="doc.fiscal_position_id.sudo().note">No further
+                                requirements for this payment</span>
+                        </p>
+                    </div>
+                    <div class="oe_structure" />
+
+                    <!-- Signature Fields -->
+                    <div class="row m-3 " style="padding-top: 100px; page-break-inside: avoid;">
+                        <div class="col-1"></div>
+                        <div class="col">
+                            <span>
+                                <b>Prepared By:</b>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span>
+                                <b>Approved By:</b>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span>
+                                <b>Received By:</b>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+        </xpath>
+
+    </template>
+</data>
