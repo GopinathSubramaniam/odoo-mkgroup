@@ -370,7 +370,7 @@
                                 t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
                                 <table class="o_total_table table table-bordered">
                                     <!-- Tax totals -->
-                                    <t t-call="sale.document_tax_totals">
+                                    <t t-call="custom_pdf_reports.custom_document_tax_totals_template">
                                         <t t-set="tax_totals" t-value="doc.tax_totals" />
                                         <t t-set="currency" t-value="doc.currency_id" />
                                         <t t-set="custom_total_cols" t-value="7" />

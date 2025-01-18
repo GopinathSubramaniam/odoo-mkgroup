@@ -2,7 +2,124 @@
 <odoo>
 
 
-    <template id="account.document_tax_totals_template">
+    <template id="custom_document_tax_totals_template">
+        <!-- <xpath expr="." position="replace"> -->
+
+            <style> .o_amount{ <!-- font-weight: bold; --> font-size: 14px; } .o_total_label{ font-weight: bold; font-size:
+                15px; } .o_total_words{ color: white !important; font-size: 15px; font-weight: bold;
+                } .o_total_words_bg { background-color: #af7d0c !important; } 
+            </style>
+            <div>
+
+                <t t-set="same_tax_base" t-value="tax_totals['same_tax_base']" />
+                <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
+                    <tr class="o_subtotal">
+                        <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
+                            <!-- <span t-out="subtotal['name']">Untaxed Amount</span> -->
+                            <span class="o_total_label m-1">Total Gross Amount (SAR) </span>
+
+                        </td>
+                        <td class="text-end o_amount">
+                            <strong class="m-1">
+
+                                <span t-att-class="oe_subtotal_footer_separator"
+                                    t-out="subtotal['base_amount_currency']"
+                                    t-options='{"widget": "monetary", "display_currency": currency}'
+                                >
+                                    27.00</span>
+                            </strong>
+                        </td>
+                    </tr>
+
+
+                    <t t-foreach="subtotal['tax_groups']" t-as="tax_group">
+                        <tr class="o_taxes">
+                            <t
+                                t-if="same_tax_base or tax_group['display_base_amount_currency'] is None">
+                                <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
+                                    <!-- <span class="text-nowrap"
+                                    t-out="tax_group['group_name']">Tax
+                                    15%</span> -->
+                                    <span class="text-nowrap o_total_label m-1">Total VAT Amount
+                                        15%(SAR)</span>
+
+                                </td>
+                                <td class="text-end o_price_total">
+                                    <strong class="text-nowrap o_amount m-1"
+                                        t-out="tax_group['tax_amount_currency']"
+                                        t-options='{"widget": "monetary", "display_currency": currency}'
+                                    >
+                                        1.05</strong>
+                                </td>
+                            </t>
+                            <t t-else="">
+                                <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
+                                    <!-- <span t-out="tax_group['group_name']">Tax 15%</span> -->
+                                    <span class="text-nowrap o_total_label m-1">Total VAT Amount
+                                        15%(SAR)</span>
+
+                                    <span> on </span>
+                                    <strong class="text-nowrap o_amount m-1"
+                                        t-out="tax_group['display_base_amount_currency']"
+                                        t-options='{"widget": "monetary", "display_currency": currency}'
+                                    >
+                                        27.00</strong>
+                                </td>
+                                <td class="text-end o_price_total o_amount">
+                                    <strong class="text-nowrap m-1"
+                                        t-out="tax_group['tax_amount_currency']"
+                                        t-options='{"widget": "monetary", "display_currency": currency}'
+                                    >
+                                        4.05</strong>
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+                </t>
+
+
+                <tr t-if="'cash_rounding_base_amount_currency' in tax_totals">
+                    <td>Rounding</td>
+                    <td class="text-end">
+                        <span t-out="tax_totals['cash_rounding_base_amount_currency']"
+                            t-options='{"widget": "monetary", "display_currency": currency}'
+                        >0</span>
+                    </td>
+                </tr>
+
+                <!--Total
+                amount with all taxes-->
+                <tr class="o_total o_total_words_bg">
+                    <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
+                        <strong class="text-nowrap o_total_label o_total_words m-1">Total Gross
+                            Amount
+                            Incl.
+                            VAT (SAR)</strong>
+                    </td>
+                    <td class="text-end">
+                        <strong t-out="tax_totals['total_amount_currency']"
+                            class="o_total_words m-1"
+                            t-options='{"widget": "monetary", "display_currency": currency}'
+                        >31.05</strong>
+                    </td>
+                </tr>
+
+                <tr class="o_price_total o_total_words_bg" t-if="show_amount_words">
+                    <td t-att-colspan="custom_total_cols if custom_total_cols else 1"
+                        class="o_total_words">
+                        <strong class="m-1">Amount in Words : </strong>
+                        <!-- </td> -->
+                        <!-- <td> -->
+                        <span class="px-3"
+                            t-esc="currency.amount_to_text(tax_totals['total_amount_currency'])"></span>
+                    </td>
+
+
+                </tr>
+
+
+            </div>
+        <!-- </xpath> -->
         <!--
             Generic template to display tax totals in pdf reports.
             Used by invoices, SO and PO.
@@ -13,115 +130,7 @@
             - custom_total_cols: (Number) For filling up empty columns in invoice report
             - show_amount_words: (Boolean) To show/hide amount in words
         -->
-        <style> .o_amount{ <!-- font-weight: bold; --> font-size: 14px; } .o_total_label{ font-weight: bold; font-size: 15px; }
-            .o_total_words{ color: white !important; font-size: 15px; font-weight: bold; }
-            .o_total_words_bg { background-color: #af7d0c !important; } </style>
-        <div>
 
-            <t t-set="same_tax_base" t-value="tax_totals['same_tax_base']" />
-            <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
-                <tr class="o_subtotal">
-                    <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
-                        <!-- <span t-out="subtotal['name']">Untaxed Amount</span> -->
-                        <span class="o_total_label m-1">Total Gross Amount (SAR) </span>
-
-                    </td>
-                    <td class="text-end o_amount">
-                        <strong class="m-1">
-
-                            <span t-att-class="oe_subtotal_footer_separator"
-                                t-out="subtotal['base_amount_currency']"
-                                t-options='{"widget": "monetary", "display_currency": currency}'
-                            >
-                                27.00</span>
-                        </strong>
-                    </td>
-                </tr>
-
-
-                <t t-foreach="subtotal['tax_groups']" t-as="tax_group">
-                    <tr class="o_taxes">
-                        <t t-if="same_tax_base or tax_group['display_base_amount_currency'] is None">
-                            <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
-                                <!-- <span class="text-nowrap" t-out="tax_group['group_name']">Tax
-                                15%</span> -->
-                                <span class="text-nowrap o_total_label m-1">Total VAT Amount
-                                    15%(SAR)</span>
-
-                            </td>
-                            <td class="text-end o_price_total">
-                                <strong class="text-nowrap o_amount m-1"
-                                    t-out="tax_group['tax_amount_currency']"
-                                    t-options='{"widget": "monetary", "display_currency": currency}'
-                                >
-                                    1.05</strong>
-                            </td>
-                        </t>
-                        <t t-else="">
-                            <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
-                                <!-- <span t-out="tax_group['group_name']">Tax 15%</span> -->
-                                <span class="text-nowrap o_total_label m-1">Total VAT Amount
-                                    15%(SAR)</span>
-
-                                <span> on </span>
-                                <strong class="text-nowrap o_amount m-1"
-                                    t-out="tax_group['display_base_amount_currency']"
-                                    t-options='{"widget": "monetary", "display_currency": currency}'
-                                >
-                                    27.00</strong>
-                            </td>
-                            <td class="text-end o_price_total o_amount">
-                                <strong class="text-nowrap m-1"
-                                    t-out="tax_group['tax_amount_currency']"
-                                    t-options='{"widget": "monetary", "display_currency": currency}'
-                                >
-                                    4.05</strong>
-                            </td>
-                        </t>
-                    </tr>
-                </t>
-            </t>
-
-
-            <tr t-if="'cash_rounding_base_amount_currency' in tax_totals">
-                <td>Rounding</td>
-                <td class="text-end">
-                    <span t-out="tax_totals['cash_rounding_base_amount_currency']"
-                        t-options='{"widget": "monetary", "display_currency": currency}'
-                    >0</span>
-                </td>
-            </tr>
-
-            <!--Total
-            amount with all taxes-->
-            <tr class="o_total o_total_words_bg">
-                <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
-                    <strong class="text-nowrap o_total_label o_total_words m-1">Total Gross Amount
-                        Incl.
-                        VAT (SAR)</strong>
-                </td>
-                <td class="text-end">
-                    <strong t-out="tax_totals['total_amount_currency']" class="o_total_words m-1"
-                        t-options='{"widget": "monetary", "display_currency": currency}'
-                    >31.05</strong>
-                </td>
-            </tr>
-
-            <tr class="o_price_total o_total_words_bg" t-if="show_amount_words">
-                <td t-att-colspan="custom_total_cols if custom_total_cols else 1"
-                    class="o_total_words">
-                    <strong class="m-1">Amount in Words : </strong>
-                    <!-- </td> -->
-                    <!-- <td> -->
-                    <span class="px-3"
-                        t-esc="currency.amount_to_text(tax_totals['total_amount_currency'])"></span>
-                </td>
-
-
-            </tr>
-
-
-        </div>
 
     </template>
 
@@ -524,7 +533,7 @@
 
                                             <!-- Tax totals summary (invoice currency) -->
                                             <t t-if="o.tax_totals"
-                                                t-call="account.document_tax_totals">
+                                                t-call="custom_pdf_reports.custom_document_tax_totals_template">
                                                 <t t-set="tax_totals" t-value="o.tax_totals" />
                                                 <t t-set="currency" t-value="o.currency_id" />
                                                 <t t-set="custom_total_cols" t-value="8" />
@@ -669,7 +678,8 @@
                             </div>
 
 
-                            <div class="row mb-3" style="page-break-inside: avoid; page-break-before: auto; padding-bottom: 50px;">
+                            <div class="row mb-3"
+                                style="page-break-inside: avoid; page-break-before: auto; padding-bottom: 50px;">
                                 <div class="col-6">
                                     <table class="table table-bordered custom_table"
                                         style="border: 2px solid #000; table-layout: auto; width: 100%;">
