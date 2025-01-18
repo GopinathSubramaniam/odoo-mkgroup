@@ -762,7 +762,9 @@
 <t t-set="signature_fields">
     <div class="row" t-if="o.company_id.approve_sign_img">
         <div class="col-1"/>
-        <div class="col"/>
+        <div class="col">
+            <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" />
+        </div>
         <div class="col text-center">
             <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px; display: block; margin: 0 auto;" />
         </div>
@@ -781,7 +783,7 @@
                 <b>Approved By:</b>
             </span>
         </div>
-        <div class="col">
+        <div class="col px-5">
             <span>
                 <b>Received By:</b>
             </span>
