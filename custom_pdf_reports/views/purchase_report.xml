@@ -283,19 +283,19 @@
                                     <strong>QTY</strong>
                                 </th>
                                 <th name="th_price_unit" class="text-end">
-                                    <strong>UNIT PRICE (SAR)</strong>
+                                    <strong>UNIT PRICE (SR)</strong>
                                 </th>
                                 <th name="th_discount" t-if="display_discount" class="text-end">
                                     <strong>DISC.</strong>
                                 </th>
                                 <th name="th_subtotal" class="text-end">
-                                    <strong>TOTAL AMOUNT (SAR) </strong>
+                                    <strong>TOTAL AMOUNT (SR) </strong>
                                 </th>
                                 <th name="th_taxes" class="text-end">
                                     <strong>VAT 15%</strong>
                                 </th>
                                 <th name="th_total" class="text-end">
-                                    <strong class="m-1">TOTAL AMOUNT WITH VAT (SAR) </strong>
+                                    <strong class="m-1">TOTAL AMOUNT WITH VAT (SR) </strong>
                                 </th>
                             </tr>
                         </thead>
