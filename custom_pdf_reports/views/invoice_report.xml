@@ -16,7 +16,7 @@
                     <tr class="o_subtotal">
                         <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
                             <!-- <span t-out="subtotal['name']">Untaxed Amount</span> -->
-                            <span class="o_total_label m-1">Total Gross Amount (SR) </span>
+                            <span class="o_total_label m-1">Total Gross Amount (SAR) </span>
 
                         </td>
                         <td class="text-end o_amount">
