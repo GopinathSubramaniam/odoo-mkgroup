@@ -5,7 +5,7 @@
     <template id="custom_document_tax_totals_template">
         <!-- <xpath expr="." position="replace"> -->
 
-            <style> .o_amount{ <!-- font-weight: bold; --> font-size: 14px; } .o_total_label{ font-weight: bold; font-size:
+            <style> .o_amount{ <!-- font-weight: bold; --> font-size: 15px; } .o_total_label{ font-weight: bold; font-size:
                 15px; } .o_total_words{ color: white !important; font-size: 15px; font-weight: bold;
                 } .o_total_words_bg { background-color: #af7d0c !important; } 
             </style>
