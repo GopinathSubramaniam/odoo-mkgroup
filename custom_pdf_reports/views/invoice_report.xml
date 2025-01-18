@@ -297,8 +297,8 @@
 
                         <t t-set="layout_document_title">
                             <span class="o_header_name">
-                                <span t-if="not proforma" />
-                                <span t-else="">PROFORMA</span>
+                                <!-- <span t-if="not proforma" />
+                                <span t-else="">PROFORMA</span> -->
                                 <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice
                                     No: </span>
                                 <span t-elif="o.move_type == 'out_invoice' and o.state == 'draft'">Draft
