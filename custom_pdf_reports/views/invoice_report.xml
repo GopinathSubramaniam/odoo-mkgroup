@@ -116,16 +116,15 @@
                 </tr>
                 <tr class="o_price_total o_total_words_bg" t-if="show_amount_words">
                     <td t-att-colspan="custom_total_cols if custom_total_cols else 1"
-                        class="o_total_words text-end lh-sm">
-                        <strong class="m-1">المبلغ الإجمالي : </strong>
-                        <!-- </td> -->
-                        <!-- <td> -->
-                        <!-- <span class="px-3" t-out="o._num2words(tax_totals['total_amount_currency'], 'ar_001')"/> -->
-                        <span class="px-3" t-out="o.with_context({'lang':'ar_001'}).currency_id.amount_to_text(tax_totals['total_amount_currency'])"/>
-
-                        
+                        class="o_total_words lh-sm text-end" 
+                        dir="rtl" 
+                        style="font-family: Arial, 'Noto Naskh Arabic', sans-serif; text-align: right;">
+                        <strong class="m-1">المبلغ الإجمالي :</strong>
+                        <span class="px-3" 
+                            t-out="o.with_context({'lang':'ar_001'}).currency_id.amount_to_text(tax_totals['total_amount_currency'])">
+                        </span>
                     </td>
-                </tr> 
+                </tr>
 
 
             </div>
