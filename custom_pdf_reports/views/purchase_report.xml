@@ -439,63 +439,186 @@
         </xpath>
     </template>
 
-    <!-- PO -->
-    <!-- <template id="report_purchase_order_inherit" inherit_id="purchase.report_purchaseorder_document">
-        <xpath expr="//table[contains(@class, 'o_main_table')]" position="replace">
-
-
-        </xpath>
-    </template> -->
-
     <!-- RFQ -->
     <template id="report_request_quotation_inherit"
         inherit_id="purchase.report_purchasequotation_document">
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <t t-call="custom_pdf_reports.custom_report_external_layout">
 
-        <xpath expr="//table/tbody" position="replace">
-            <style>
-                table tr th,
-                table tr td{
-                height: 15px !important;
-                }
-            </style>
-            <tbody>
-                <t t-foreach="o.order_line" t-as="order_line">
-                    <tr
-                        t-att-class="'fw-bold o_line_section' if order_line.display_type == 'line_section' else 'fst-italic o_line_note' if order_line.display_type == 'line_note' else ''">
-                        <t t-if="not order_line.display_type">
-                            <td id="product">
-                                <span t-field="order_line.name" />
-                            </td>
-                            <td class="text-center">
-                                <span t-field="order_line.date_planned" />
-                            </td>
-                            <td class="text-end">
-                                <span t-field="order_line.product_qty" />
-                                <span t-field="order_line.product_uom_id" groups="uom.group_uom" />
-                                <span t-if="order_line.product_packaging_id"> (<span
-                                        t-field="order_line.product_packaging_qty"
-                                        t-options="{&quot;widget&quot;: &quot;integer&quot;}" /> <span
-                                        t-field="order_line.product_packaging_id" />) </span>
-                            </td>
-                        </t>
-                        <t t-else="">
-                            <td colspan="99" id="section">
-                                <span t-field="order_line.name" />
-                            </td>
-                        </t>
-                    </tr>
-                </t>
+                <style>
+                    table tr th,
+                    table tr td{
+                    height: 15px !important;
+                    }
 
-                <t t-set="required_rows" t-value="15" />
-                <t t-set="current_rows" t-value="len(o.order_line)" />
-                <t t-foreach="range(required_rows - current_rows)" t-as="empty_row">
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </t>
-            </tbody>
+                    .o_main_table tr th,
+                    .o_main_table tr td{
+                    height: 15px !important;
+                    }
+                    .table-bordered {
+                        border-collapse: collapse;
+                        width: 100%; /* Optional: Makes the table span the full width of its container */
+                    }
+
+                    .table-bordered th,
+                    .table-bordered td {
+                        border: 1px solid #000; /* Black border */
+                        padding: 8px; /* Adds padding for better readability */
+                        text-align: left; /* Aligns content to the left */
+                    }
+
+                    .table-bordered th {
+                        background-color: #ffce5f;
+                    }
+                </style>
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row justify-content-center mb-4">
+                        <div class="col">
+                            <strong><h2 class="mt-2 text-center text-uppercase informations_text" style="font-size: 29px;">REQUEST FOR QUOTATION</h2></strong>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2" style="font-size: 20px;">
+                        <div class="col-7">
+                            <p class="company_details">
+                                <strong style="font-size: 23px;">
+                                    <span t-esc="o.company_id.name" />
+                                </strong>
+                                <t t-if="o.company_id.street">
+                                    <br />
+                                    <span t-esc="o.company_id.street" />
+                                </t>
+                                <t t-if="o.company_id.street2">
+                                    <br />
+                                    <span t-esc="o.company_id.street2" />
+                                </t>
+                                <t t-if="o.company_id.state_id or o.company_id.country_id or o.company_id.zip">
+                                    <br />
+                                    <t t-if="o.company_id.state_id">
+                                        <span t-esc="o.company_id.state_id.name+', '" />
+                                    </t>
+                                    <t t-if="o.company_id.country_id">
+                                        <span t-esc="o.company_id.country_id.name" />
+                                    </t>
+                                    <t t-if="o.company_id.zip">
+                                        <span t-esc="o.company_id.zip+'- '" />
+                                    </t>
+                                </t>
+                                <t t-if="o.company_id.vat or o.company_id.company_registry">
+                                    <br />
+                                    <t t-if="o.company_id.vat">
+                                        <span t-esc="'VAT Number: '+o.company_id.vat" />
+                                    </t>
+                                    <t t-if="o.company_id.company_registry">
+                                        <span t-esc="', CRN: '+o.company_id.company_registry" />
+                                    </t>
+                                </t>
+                            </p>
+                            <p>
+                                <strong>Contact Person: </strong><span class="px-1" t-if="o.contact_partner_id" t-field="o.contact_partner_id"/>
+                                <br/>
+                                <strong>Contact No: </strong><span class="px-1" t-if="o.contact_partner_id" t-field="o.contact_partner_id.phone"/>
+
+                            </p>
+                        </div>
+                        <div class="col-5">
+                            <p>
+                                <strong>RFQ Date: </strong><span class="px-1" t-if="o.date_order" t-esc="o.date_order.strftime('%m/%d/%Y')"/>
+                                <br/>
+                                <strong>Delivery Location: </strong><span class="px-1" t-if="o.incoterm_location" t-field='o.incoterm_location'/>
+                                <br/>
+                                <strong>Delivery Date: </strong><span class="px-1" t-if="o.date_planned" t-esc="o.date_planned.strftime('%m/%d/%Y')"/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-8" style="font-size: 23px; color: #bd9311;">
+                            <div t-if="o.name" class="">
+                                <strong>RFQ No: </strong>
+                                <strong t-field="o.name" class="px-1" style="font-size: 24px;"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered mt-4">
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <th name="th_description" class="text-center"><strong class="m-1">#</strong></th>
+                                <th name="th_description"><strong class="m-1">Description</strong></th>
+                                <th name="th_quantity" class="text-center"><strong class="m-1">Qty</strong></th>
+                                <th name="th_uom" class="text-center"><strong class="m-1">UNIT</strong></th>
+                                <th name="th_brand" class="text-center"><strong class="m-1">BRAND/MAKE</strong></th>
+                                <th name="th_remarks" class="text-center"><strong class="m-1 text-nowrap"> REMARKS </strong></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="index" t-value="1"/>
+                            <t t-foreach="o.order_line" t-as="order_line">
+                                <tr t-att-class="'fw-bold o_line_section' if order_line.display_type == 'line_section' else 'fst-italic o_line_note' if order_line.display_type == 'line_note' else ''">
+                                    <t t-if="not order_line.display_type">
+                                        <td id="index" class="text-center">
+                                            <span t-esc="index"/>
+                                            <t t-set="index" t-value="index+1"/>
+
+                                        </td>
+
+                                        <td id="product">
+                                            <span t-field="order_line.name"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="order_line.product_qty"/>
+                                            <!-- <span t-field="order_line.product_uom_id" groups="uom.group_uom"/> -->
+                                            <span t-if="order_line.product_packaging_id">
+                                                (<span t-field="order_line.product_packaging_qty" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="order_line.product_packaging_id"/>)
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="order_line.product_uom_id" groups="uom.group_uom"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="order_line.product_id.brand_id"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="order_line.remarks"/>
+                                        </td>
+
+                                    </t>
+                                    <t t-else="">
+                                        <td colspan="99" id="section">
+                                            <span t-field="order_line.name"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <p t-field="o.notes" class="mt-4"/>
+
+                    <div class="oe_structure"/>
+
+                    <!-- Signature Fields -->
+                    <t t-set="signature_fields">
+                        <div class="row" style="page-break-inside: avoid; margin-top:50px; font-size:18px;">
+                            <div class="col-1"></div>
+                            <div class="col">
+                                <strong>
+                                    <b>Requested By:</b>
+                                </strong>
+                            </div>
+                            <div class="col-5"></div>
+                            <div class="col">
+                                <strong>
+                                    <b>Stamp:</b>
+                                </strong>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
         </xpath>
     </template>
 
