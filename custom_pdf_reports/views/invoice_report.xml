@@ -56,7 +56,7 @@
                                 <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
                                     <!-- <span t-out="tax_group['group_name']">Tax 15%</span> -->
                                     <span class="text-nowrap o_total_label m-1">Total VAT Amount
-                                        15%(SAR)</span>
+                                        15% (SAR)</span>
 
                                     <span> on </span>
                                     <strong class="text-nowrap o_amount m-1"
