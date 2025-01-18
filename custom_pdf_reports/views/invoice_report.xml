@@ -395,7 +395,7 @@
                         <t t-set="display_discount"
                             t-value="any(l.discount for l in o.invoice_line_ids)" />
                         <div class="oe_structure" />
-                        <div class="mt-3" style="padding-top:1px;">
+                        <div class="mt-4" style="padding-top:1px;">
 
                             <table
                                 class="o_has_total_table table o_main_table table-bordered custom_table mt-5"
@@ -416,7 +416,7 @@
                                         </th>
                                         <th name="th_priceunit"
                                             t-attf-class="text-end text-nowrap {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                            <span>Unit Price<br />(سعر الوحدة)</span>
+                                            <span class="text-nowrap">Unit Price (SR)<br />(سعر الوحدة)</span>
                                         </th>
                                         <th name="th_discount" t-if="display_discount"
                                             t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
@@ -427,13 +427,13 @@
                                     <span>Taxes</span>
                                 </th> -->
                                         <th name="th_net_total" class="text-end">
-                                            <span>Net Amount<br />(كمية)</span>
+                                            <span class="text-nowrap">Net Amount (SR)<br />(كمية)</span>
                                         </th>
                                         <th name="th_vat" class="text-end">
-                                            <span>VAT 15%<br />( الضريبة نسبة)</span>
+                                            <span class="text-nowrap">VAT 15% (SR)<br />( الضريبة نسبة)</span>
                                         </th>
                                         <th name="th_subtotal" class="text-end">
-                                            <span class="m-1">Total Amount</span>
+                                            <span class="m-1 text-nowrap">Total Amount</span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -471,7 +471,8 @@
                                                 </td>
                                                 <td name="td_price_unit"
                                                     t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                                    <span class="text-nowrap" t-esc="line.price_unit">
+                                                    <span class="text-nowrap" t-esc="'{0:,.2f}'.format(line.price_unit)">
+>
                                                         9.00</span>
                                                 </td>
                                                 <td name="td_discount" t-if="display_discount"
@@ -489,12 +490,12 @@
 
                                                 <td name="td_subtotal" class="text-end o_price_total">
                                                     <span class="text-nowrap"
-                                                        t-esc="round(line.price_subtotal, 2)">
+                                                        t-esc="'{0:,.2f}'.format(line.price_subtotal)">
                                                         27.00</span>
                                                 </td>
                                                 <td name="td_vat" class="text-end">
                                                     <span class="text-nowrap"
-                                                        t-esc="round(line.line_tax_amount, 2)">
+                                                        t-esc="'{0:,.2f}'.format(line.line_tax_amount)">
                                                         27.00</span>
                                                 </td>
                                                 <td name="td_total_amount" class="text-end">
