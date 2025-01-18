@@ -106,7 +106,7 @@
             t-attf-class="footer o_company_#{company.id}_layout {{report_type != 'pdf' and 'mt-auto'}}">
 
             <t t-if="signature_fields">
-                <div t-out="signature_fields" class="last-page mb-5" />
+                <div t-out="signature_fields" class="last-page mb-5" style="page-break-inside: avoid; page-break-before:auto;"/>
             </t>
 
             <div class="o_footer_content d-flex border-top pt-2">

@@ -13,30 +13,9 @@
             - custom_total_cols: (Number) For filling up empty columns in invoice report
             - show_amount_words: (Boolean) To show/hide amount in words
         -->
-        <style>
-            .o_amount{
-            <!-- font-weight: bold; -->
-            font-size: 14px;
-            }
-
-            .o_total_label{
-            font-weight: bold;
-            font-size: 15px;
-            }
-
-            .o_total_words{
-            color: white !important;
-            font-size: 15px;
-            font-weight: bold;
-
-
-            }
-
-            .o_total_words_bg {
-            background-color: #af7d0c !important;
-            }
-
-        </style>
+        <style> .o_amount{ <!-- font-weight: bold; --> font-size: 14px; } .o_total_label{ font-weight: bold; font-size: 15px; }
+            .o_total_words{ color: white !important; font-size: 15px; font-weight: bold; }
+            .o_total_words_bg { background-color: #af7d0c !important; } </style>
         <div>
 
             <t t-set="same_tax_base" t-value="tax_totals['same_tax_base']" />
@@ -66,7 +45,8 @@
                             <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
                                 <!-- <span class="text-nowrap" t-out="tax_group['group_name']">Tax
                                 15%</span> -->
-                                <span class="text-nowrap o_total_label m-1">Total VAT Amount 15%(SAR)</span>
+                                <span class="text-nowrap o_total_label m-1">Total VAT Amount
+                                    15%(SAR)</span>
 
                             </td>
                             <td class="text-end o_price_total">
@@ -80,7 +60,8 @@
                         <t t-else="">
                             <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
                                 <!-- <span t-out="tax_group['group_name']">Tax 15%</span> -->
-                                <span class="text-nowrap o_total_label m-1">Total VAT Amount 15%(SAR)</span>
+                                <span class="text-nowrap o_total_label m-1">Total VAT Amount
+                                    15%(SAR)</span>
 
                                 <span> on </span>
                                 <strong class="text-nowrap o_amount m-1"
@@ -223,21 +204,22 @@
                             background-color: #ffc134 !important;
                             }
 
-                        .table-bordered {
+                            .table-bordered {
                             border-collapse: collapse;
-                            width: 100%; /* Optional: Makes the table span the full width of its container */
-                        }
+                            width: 100%; /* Optional: Makes the table span the full width of its
+                            container */
+                            }
 
-                        .table-bordered th,
-                        .table-bordered td {
+                            .table-bordered th,
+                            .table-bordered td {
                             border: 1px solid #000; /* Black border */
                             padding: 8px; /* Adds padding for better readability */
                             text-align: left; /* Aligns content to the left */
-                        }
+                            }
 
-                        .table-bordered th {
+                            .table-bordered th {
                             background-color: #ffce5f; /* Light gray background for headers */
-                        }
+                            }
 
                         </style>
 
@@ -367,16 +349,24 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <strong class="m-1"><t t-esc="o.invoice_date" /></strong>
+                                                <strong class="m-1">
+                                                    <t t-esc="o.invoice_date" />
+                                                </strong>
                                             </td>
                                             <td>
-                                                <strong><t t-esc="o.delivery_date" /></strong>
+                                                <strong>
+                                                    <t t-esc="o.delivery_date" />
+                                                </strong>
                                             </td>
                                             <td>
-                                                <strong><t t-esc="o.ref" /></strong>
+                                                <strong>
+                                                    <t t-esc="o.ref" />
+                                                </strong>
                                             </td>
                                             <td>
-                                                <strong><t t-esc="o.invoice_date_due" /></strong>
+                                                <strong>
+                                                    <t t-esc="o.invoice_date_due" />
+                                                </strong>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -478,7 +468,8 @@
                                                     27.00</span>
                                             </td>
                                             <td name="td_vat" class="text-end">
-                                                <span class="text-nowrap" t-field="line.line_tax_amount">
+                                                <span class="text-nowrap"
+                                                    t-field="line.line_tax_amount">
                                                     27.00</span>
                                             </td>
                                             <td name="td_total_amount" class="text-end">
@@ -678,7 +669,7 @@
                             </div>
 
 
-                            <div class="row mb-3">
+                            <div class="row mb-3" style="page-break-inside: avoid; page-break-before: auto; padding-bottom: 50px;">
                                 <div class="col-6">
                                     <table class="table table-bordered custom_table"
                                         style="border: 2px solid #000; table-layout: auto; width: 100%;">
@@ -745,8 +736,6 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
-
                                 </div>
                                 <div class="col-6 d-flex align-items-center justify-content-center">
                                     <img t-if="o.company_id.company_seal_img" style="height: 160px;"
@@ -755,11 +744,12 @@
                                         alt="Logo" />
                                 </div>
                             </div>
+
                         </div>
 
                         <!-- Signature Fields -->
                         <t t-set="signature_fields">
-                            <div class="row" style="page-break-inside: avoid; margin-top:50px;">
+                            <div class="row">
                                 <div class="col-1"></div>
                                 <div class="col">
                                     <span>
