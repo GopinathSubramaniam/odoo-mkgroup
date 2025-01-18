@@ -120,8 +120,10 @@
                         <strong class="m-1">المبلغ الإجمالي : </strong>
                         <!-- </td> -->
                         <!-- <td> -->
-                        <span class="px-3" t-out="o._num2words(tax_totals['total_amount_currency'], 'ar_001')"/>
+                        <!-- <span class="px-3" t-out="o._num2words(tax_totals['total_amount_currency'], 'ar_001')"/> -->
+                        <span class="px-3" t-out="o.with_context({'lang':'ar_001'}).currency_id.amount_to_text(tax_totals['total_amount_currency'])"/>
 
+                        
                     </td>
                 </tr> 
 

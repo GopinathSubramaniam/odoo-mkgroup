@@ -262,7 +262,7 @@
                                 </th>
                                 <th name="th_taxes" class="text-end">VAT 15%</th>
                                 <th name="th_subtotal" class="text-end">
-                                    <span class="m-1">Amount (SR)</span>
+                                    <span class="m-1">Amount (SAR)</span>
                                 </th>
                             </tr>
                         </thead>
