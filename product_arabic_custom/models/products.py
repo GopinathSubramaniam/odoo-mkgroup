@@ -14,4 +14,4 @@ class CompanyHeaderfootr(models.Model):
     header_img = fields.Binary('Header Image ')
     footer_img = fields.Binary('Footer Image ')
     company_seal_img = fields.Binary("Company Seal Image")
-
+    approve_sign_img = fields.Binary("Approve Sign Image")

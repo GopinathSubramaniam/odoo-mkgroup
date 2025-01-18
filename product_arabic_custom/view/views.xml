@@ -44,6 +44,15 @@
                                 (1310px X 134px)
                             </span>
                         </div>
+
+
+                        <label for="approve_sign_img" string="Approve Sign Image"/>
+                        <div class="d-flex mx-2">
+                            <field name="approve_sign_img" widget="image" class="oe_avatar"/>
+                            <span class="o_form_label mx-3 oe_edit_only">
+                                (1310px X 134px)
+                            </span>
+                        </div>
                     </xpath>
                 </data>
             </field>

@@ -679,7 +679,7 @@
 
 
                             <div class="row mb-3"
-                                style="page-break-inside: avoid; page-break-before: auto; padding-bottom: 50px;">
+                                style="page-break-inside: avoid; page-break-before: auto;">
                                 <div class="col-6">
                                     <table class="table table-bordered custom_table"
                                         style="border: 2px solid #000; table-layout: auto; width: 100%;">
@@ -757,27 +757,37 @@
 
                         </div>
 
-                        <!-- Signature Fields -->
-                        <t t-set="signature_fields">
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col">
-                                    <span>
-                                        <b>Prepared By:</b>
-                                    </span>
-                                </div>
-                                <div class="col">
-                                    <span>
-                                        <b>Approved By:</b>
-                                    </span>
-                                </div>
-                                <div class="col">
-                                    <span>
-                                        <b>Received By:</b>
-                                    </span>
-                                </div>
-                            </div>
-                        </t>
+
+<!-- Signature Fields -->
+<t t-set="signature_fields">
+    <div class="row" t-if="o.company_id.approve_sign_img">
+        <div class="col-1"/>
+        <div class="col"/>
+        <div class="col text-center">
+            <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px; display: block; margin: 0 auto;" />
+        </div>
+        <div class="col"/>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col">
+            <span>
+                <b>Prepared By:</b>
+            </span>
+        </div>
+        <div class="col text-center">
+            <!-- Signature Image -->
+            <span>
+                <b>Approved By:</b>
+            </span>
+        </div>
+        <div class="col">
+            <span>
+                <b>Received By:</b>
+            </span>
+        </div>
+    </div>
+</t>
 
                     </div>
                 </div>
