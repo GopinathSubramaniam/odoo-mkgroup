@@ -221,6 +221,7 @@
 
                             .table_head{
                             background-color: #ffc134 !important;
+                            display: table-row-group;
                             }
 
                             .table-bordered {
@@ -243,67 +244,84 @@
                         </style>
 
                         <!-- Seller and Buyer Details -->
-                        <div class="row">
-                            <!-- Seller Details -->
-                            <div class="col">
-                                <h5>
-                                    <strong>Seller Details</strong>
-                                </h5>
-                                <p class="company_details">
-                                    <strong style="font-size:24px;">
-                                        <span t-esc="o.company_id.name" />
-                                    </strong>
-                                    <br />
-                                    <span t-if="o.company_id.street">
-                                        <span t-esc="o.company_id.street" />
-                                        <br />
-                                    </span>
-                                    <span t-if="o.company_id.street2">
-                                        <span t-esc="o.company_id.street2" />
-                                        <br />
-                                    </span>
-                                    <span t-if="o.company_id.state_id">
-                                        <span t-esc="o.company_id.state_id.name+', '" />
-                                        <br />
-                                    </span>
-                                    <span t-if="o.company_id.country_id"
-                                        t-esc="o.company_id.country_id.name+' - '" />
-                                    <span t-if="o.company_id.zip" t-esc="o.company_id.zip" />
-                                    <br />
-                                    <span t-if="o.company_id.vat"
-                                        t-esc="'VAT Number: '+o.company_id.vat" />
-                                    <span t-if="o.company_id.company_registry"
-                                        t-esc="', CRN: '+o.company_id.company_registry" />
-                                </p>
-                            </div>
+<div class="row">
+    <!-- Seller Details -->
+    <div class="col">
+        <h5>
+            <strong>Seller Details</strong>
+        </h5>
+        <p class="company_details">
+            <strong style="font-size:24px;">
+                <span t-esc="o.company_id.name" />
+            </strong>
+            <t t-if="o.company_id.name"><br /></t>
+            <span t-if="o.company_id.street">
+                <span t-esc="o.company_id.street" />
+                <br />
+            </span>
+            <span t-if="o.company_id.street2">
+                <span t-esc="o.company_id.street2" />
+                <br />
+            </span>
+            <span t-if="o.company_id.state_id">
+                <span t-esc="o.company_id.state_id.name" />
+                <t t-if="o.company_id.country_id or o.company_id.zip"><br /></t>
+            </span>
+            <span t-if="o.company_id.country_id">
+                <span t-esc="o.company_id.country_id.name+' - '" />
+            </span>
+            <span t-if="o.company_id.zip">
+                <span t-esc="o.company_id.zip" />
+                <br />
+            </span>
+            <span t-if="o.company_id.vat">
+                <span t-esc="'VAT Number: '+o.company_id.vat" />
+            </span>
+            <span t-if="o.company_id.company_registry">
+                <span t-esc="', CRN: '+o.company_id.company_registry" />
+            </span>
+        </p>
+    </div>
 
-                            <!-- Buyer Details -->
-                            <div class="col">
-                                <h5>
-                                    <strong>Buyer Details</strong>
-                                </h5>
-                                <p class="company_details">
-                                    <strong style="font-size:24px;">
-                                        <span t-esc="o.partner_id.name" />
-                                    </strong>
-                                    <br />
-                                    <span t-esc="o.partner_id.street" />
-                                    <br />
-                                    <span t-esc="o.partner_id.street2" />
-                                    <br />
-                                    <span t-if="o.partner_id.state_id"
-                                        t-esc="o.partner_id.state_id.name+', '" />
-                                    <span t-if="o.partner_id.country_id"
-                                        t-esc="o.partner_id.country_id.name+'- '" />
-                                    <span t-if="o.partner_id.zip" t-esc="o.partner_id.zip" />
-                                    <br />
-                                    <span t-if="o.partner_id.vat"
-                                        t-esc="'VAT Number: '+o.partner_id.vat" />
-                                    <span t-if="o.partner_id.company_registry"
-                                        t-esc="' ,CRN: '+o.partner_id.company_registry" />
-                                </p>
-                            </div>
-                        </div>
+    <!-- Buyer Details -->
+    <div class="col">
+        <h5>
+            <strong>Buyer Details</strong>
+        </h5>
+        <p class="company_details">
+            <strong style="font-size:24px;">
+                <span t-esc="o.partner_id.name" />
+            </strong>
+            <t t-if="o.partner_id.name"><br /></t>
+            <span t-if="o.partner_id.street">
+                <span t-esc="o.partner_id.street" />
+                <br />
+            </span>
+            <span t-if="o.partner_id.street2">
+                <span t-esc="o.partner_id.street2" />
+                <br />
+            </span>
+            <span t-if="o.partner_id.state_id">
+                <span t-esc="o.partner_id.state_id.name" />
+                <t t-if="o.partner_id.country_id or o.partner_id.zip"><br /></t>
+            </span>
+            <span t-if="o.partner_id.country_id">
+                <span t-esc="o.partner_id.country_id.name+' - '" />
+            </span>
+            <span t-if="o.partner_id.zip">
+                <span t-esc="o.partner_id.zip" />
+                <br />
+            </span>
+            <span t-if="o.partner_id.vat">
+                <span t-esc="'VAT Number: '+o.partner_id.vat" />
+            </span>
+            <span t-if="o.partner_id.company_registry">
+                <span t-esc="' ,CRN: '+o.partner_id.company_registry" />
+            </span>
+        </p>
+    </div>
+</div>
+
 
                         <t t-set="layout_document_title">
                             <span class="o_header_name">
