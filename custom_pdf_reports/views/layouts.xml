@@ -121,7 +121,7 @@
                 <div class="flex-grow-1 text-start me-2">
                     <img class="w-100"
                         t-att-src="image_data_uri(o.company_id.footer_img)"
-                        style="max-height: 120px;" />
+                        style="   image-rendering: high-quality;" />
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
                     <tr class="o_subtotal">
                         <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
                             <!-- <span t-out="subtotal['name']">Untaxed Amount</span> -->
-                            <span class="o_total_label m-1">Total Gross Amount (SAR) </span>
+                            <span class="o_total_label m-1">Total Gross Amount (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي (ريال سعودي)</span></span>
 
                         </td>
                         <td class="text-end o_amount" colspan="2">
@@ -40,8 +40,7 @@
                                     <!-- <span class="text-nowrap"
                                     t-out="tax_group['group_name']">Tax
                                     15%</span> -->
-                                    <span class="text-nowrap o_total_label m-1">Total VAT Amount
-                                        15% (SAR)</span>
+                                    <span class="text-nowrap o_total_label m-1">Total VAT Amount 15% (SAR) <span class="lh-sm text-end" dir="rtl">إجمالي مبلغ ضريبة القيمة المضافة %15 (ريال سعودي)</span></span>
 
                                 </td>
                                 <td class="text-end o_price_total" colspan="2">
@@ -55,8 +54,7 @@
                             <t t-else="">
                                 <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
                                     <!-- <span t-out="tax_group['group_name']">Tax 15%</span> -->
-                                    <span class="text-nowrap o_total_label m-1">Total VAT Amount
-                                        15% (SAR)</span>
+                                    <span class="text-nowrap o_total_label m-1">Total VAT Amount 15% (SAR) <span class="lh-sm" dir="rtl">إجمالي مبلغ ضريبة القيمة المضافة %15 (ريال سعودي)</span></span>
 
                                     <span> on </span>
                                     <strong class="text-nowrap o_amount m-1"
@@ -91,10 +89,7 @@
                 amount with all taxes-->
                 <tr class="o_total o_total_words_bg">
                     <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
-                        <strong class="text-nowrap o_total_label o_total_words m-1">Total Gross
-                            Amount
-                            Incl.
-                            VAT (SAR)</strong>
+                        <strong class="text-nowrap o_total_label o_total_words m-1">Total Gross Amount Incl. VAT (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي بما في ذلك. ضريبة القيمة المضافة (ريال سعودي) </span></strong>
                     </td>
                     <td class="text-end" colspan="2">
                         <strong t-out="tax_totals['total_amount_currency']"
@@ -428,14 +423,14 @@
                                             <span>DESCRIPTION<br />(منتج)</span>
                                         </th>
                                         <th name="th_quantity" class="text-end">
-                                            <span>QTY<br />(كمية)</span>
+                                            <span>QTY<br/>(كمية)</span>
                                         </th>
                                         <th name="th_unit" class="text-end">
-                                            <span>UNIT</span>
+                                            <span>UNIT<br/>(وحدة)</span>
                                         </th>
                                         <th name="th_priceunit"
                                             t-attf-class="text-center text-nowrap {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                            <span class="text-nowrap">PRICE<br/>(SAR)<br />(سعر الوحدة)</span>
+                                            <span class="text-nowrap">Unit Price<br/>(SAR)<br />(سعر الوحدة)</span>
                                         </th>
                                         <th name="th_discount" t-if="display_discount"
                                             t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
@@ -481,7 +476,7 @@
                                                         t-options="{'widget': 'text'}">Bacon Burger</span>
                                                 </td>
                                                 <td name="td_quantity" class="text-end text-nowrap">
-                                                    <span t-field="line.quantity">3.00</span>
+                                                    <span t-if="line.quantity" t-field="line.quantity" t-options="{'widget': 'integer'}">3.00</span>
                                                 </td>
                                                 <td name="td_uom" class="text-end text-nowrap">
                                                     <span t-field="line.product_uom_id"
