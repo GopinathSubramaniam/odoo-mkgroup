@@ -14,12 +14,12 @@
                 <t t-set="same_tax_base" t-value="tax_totals['same_tax_base']" />
                 <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
                     <tr class="o_subtotal">
-                        <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
+                        <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
                             <!-- <span t-out="subtotal['name']">Untaxed Amount</span> -->
                             <span class="o_total_label m-1">Total Gross Amount (SAR) </span>
 
                         </td>
-                        <td class="text-end o_amount">
+                        <td class="text-end o_amount" colspan="2">
                             <strong class="m-1">
 
                                 <span t-att-class="oe_subtotal_footer_separator"
@@ -36,7 +36,7 @@
                         <tr class="o_taxes">
                             <t
                                 t-if="same_tax_base or tax_group['display_base_amount_currency'] is None">
-                                <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
+                                <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
                                     <!-- <span class="text-nowrap"
                                     t-out="tax_group['group_name']">Tax
                                     15%</span> -->
@@ -44,7 +44,7 @@
                                         15% (SAR)</span>
 
                                 </td>
-                                <td class="text-end o_price_total">
+                                <td class="text-end o_price_total" colspan="2">
                                     <strong class="text-nowrap o_amount m-1"
                                         t-out="tax_group['tax_amount_currency']"
                                         t-options='{"widget": "monetary", "display_currency": currency}'
@@ -53,7 +53,7 @@
                                 </td>
                             </t>
                             <t t-else="">
-                                <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
+                                <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
                                     <!-- <span t-out="tax_group['group_name']">Tax 15%</span> -->
                                     <span class="text-nowrap o_total_label m-1">Total VAT Amount
                                         15% (SAR)</span>
@@ -65,7 +65,7 @@
                                     >
                                         27.00</strong>
                                 </td>
-                                <td class="text-end o_price_total o_amount">
+                                <td class="text-end o_price_total o_amount" colspan="2">
                                     <strong class="text-nowrap m-1"
                                         t-out="tax_group['tax_amount_currency']"
                                         t-options='{"widget": "monetary", "display_currency": currency}'
@@ -79,8 +79,8 @@
 
 
                 <tr t-if="'cash_rounding_base_amount_currency' in tax_totals">
-                    <td>Rounding</td>
-                    <td class="text-end">
+                    <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1" >Rounding</td>
+                    <td class="text-end" colspan="2">
                         <span t-out="tax_totals['cash_rounding_base_amount_currency']"
                             t-options='{"widget": "monetary", "display_currency": currency}'
                         >0</span>
@@ -90,13 +90,13 @@
                 <!--Total
                 amount with all taxes-->
                 <tr class="o_total o_total_words_bg">
-                    <td t-att-colspan="custom_total_cols-1 if custom_total_cols else 1">
+                    <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
                         <strong class="text-nowrap o_total_label o_total_words m-1">Total Gross
                             Amount
                             Incl.
                             VAT (SAR)</strong>
                     </td>
-                    <td class="text-end">
+                    <td class="text-end" colspan="2">
                         <strong t-out="tax_totals['total_amount_currency']"
                             class="o_total_words m-1"
                             t-options='{"widget": "monetary", "display_currency": currency}'
@@ -399,7 +399,7 @@
                         <div class="mt-1" style="padding-top:1px;">
 
                             <table
-                                class="o_has_total_table table o_main_table table-bordered custom_table mt-1"
+                                class="o_has_total_table table o_main_table table-bordered custom_table mt-3"
                                 name="invoice_line_table">
                                 <thead class="table_head">
                                     <tr>
@@ -539,13 +539,20 @@
                                             </tr>
                                         </t>
                                     </t>
+                                            <t t-if="o.tax_totals"
+                                                t-call="custom_pdf_reports.custom_document_tax_totals_template">
+                                                <t t-set="tax_totals" t-value="o.tax_totals" />
+                                                <t t-set="currency" t-value="o.currency_id" />
+                                                <t t-set="custom_total_cols" t-value="8" />
+                                                <t t-set="show_amount_words" t-value="True" />
+                                            </t>
                                 </tbody>
                             </table>
                         </div>
                         <div>
                             <div id="right-elements"
                                 t-attf-class="#{'col-12' if report_type != 'html' else 'col-12'}  ">
-                                <div id="total" class="clearfix row">
+                                <div id="total" class="clearfix row d-none">
                                     <div class="ms-auto">
                                         <table
                                             class="o_total_table table table-bordered">
