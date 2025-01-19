@@ -102,14 +102,13 @@
             <t t-call="web.address_layout" />
             <!-- <h2 t-out="layout_document_title"/> -->
             <t t-out="0" />
+            <t t-if="signature_fields">
+                <div t-out="signature_fields" class="last-page mb-3" style="page-break-inside: avoid; page-break-before:auto;"/>
+            </t>
         </div>
 
         <div
             t-attf-class="footer o_company_#{company.id}_layout {{report_type != 'pdf' and 'mt-auto'}}">
-
-            <t t-if="signature_fields">
-                <div t-out="signature_fields" class="last-page mb-3" style="page-break-inside: avoid; page-break-before:auto;"/>
-            </t>
 
             <div class="o_footer_content d-flex border-top pt-2">
                 <!-- <div class="flex-grow-1 text-start me-2" t-field="company.report_footer" /> -->

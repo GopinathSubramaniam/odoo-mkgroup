@@ -396,10 +396,10 @@
                         <t t-set="display_discount"
                             t-value="any(l.discount for l in o.invoice_line_ids)" />
                         <div class="oe_structure" />
-                        <div class="mt-4" style="padding-top:1px;">
+                        <div class="mt-1" style="padding-top:1px;">
 
                             <table
-                                class="o_has_total_table table o_main_table table-bordered custom_table mt-5"
+                                class="o_has_total_table table o_main_table table-bordered custom_table mt-1"
                                 name="invoice_line_table">
                                 <thead class="table_head">
                                     <tr>
@@ -548,7 +548,7 @@
                                 <div id="total" class="clearfix row">
                                     <div class="ms-auto">
                                         <table
-                                            class="o_total_table table table-bordered avoid-page-break-inside">
+                                            class="o_total_table table table-bordered">
 
                                             <!-- Tax totals summary (invoice currency) -->
                                             <t t-if="o.tax_totals"
@@ -779,7 +779,7 @@
 
 <!-- Signature Fields -->
 <t t-set="signature_fields">
-    <div class="row" t-if="o.company_id.approve_sign_img">
+    <div class="row mt-2" style="padding-top:30px;" t-if="o.company_id.approve_sign_img">
         <div class="col-1"/>
         <div class="col">
             <!-- <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" /> -->
