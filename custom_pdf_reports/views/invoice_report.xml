@@ -271,9 +271,10 @@
             </span>
             <span t-if="o.company_id.vat">
                 <span t-esc="'VAT Number: '+o.company_id.vat" />
+                <br/>
             </span>
             <span t-if="o.company_id.company_registry">
-                <span t-esc="', CRN: '+o.company_id.company_registry" />
+                <span t-esc="'CR. No: '+o.company_id.company_registry" />
             </span>
         </p>
     </div>
