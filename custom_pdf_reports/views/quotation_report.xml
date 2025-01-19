@@ -6,6 +6,7 @@
         <xpath expr="//t[@t-call='web.external_layout']" position="replace">
 
             <t t-set="company" t-value="doc.company_id" />
+            <t t-set="o" t-value="doc.with_context(lang=lang)" />
 
             <t t-call="custom_pdf_reports.custom_report_external_layout">
 
@@ -249,20 +250,40 @@
                     <div class="oe_structure"></div>
                     <table class="o_has_total_table table o_main_table table-bordered">
                         <!-- In case we want to repeat the header, remove "display: table-row-group" -->
-                        <thead style="display: table-row-group" class="sale_thead">
+                        <thead class="table_head">
                             <tr>
-                                <th name="th_index" class="text-center">SL No</th>
-                                <th name="th_description" class="text-start">DESCRIPTION</th>
-                                <th name="th_quantity" class="text-end text-nowrap">QUANTITY</th>
-                                <th name="th_quantity" class="text-end text-nowrap">UNIT</th>
-
-                                <th name="th_priceunit" class="text-end text-nowrap">UNIT PRICE</th>
-                                <th name="th_discount" t-if="display_discount" class="text-end">
+                                <th name="th_index" class="text-center">
+                                    <span class="m-1 text-center">#</span>
+                                </th>
+                                <th name="th_description" class="text-start">
+                                    <span>DESCRIPTION<br />(منتج)</span>
+                                </th>
+                                <th name="th_quantity" class="text-end">
+                                    <span>QTY<br/>(كمية)</span>
+                                </th>
+                                <th name="th_unit" class="text-end">
+                                    <span>UNIT<br/>(وحدة)</span>
+                                </th>
+                                <th name="th_priceunit"
+                                    t-attf-class="text-center text-nowrap {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                    <span class="text-nowrap">Unit Price<br/>(SAR)<br />(سعر الوحدة)</span>
+                                </th>
+                                <th name="th_discount" t-if="display_discount"
+                                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                     <span>Disc.%</span>
                                 </th>
-                                <th name="th_taxes" class="text-end">VAT 15%</th>
-                                <th name="th_subtotal" class="text-end">
-                                    <span class="m-1">Amount (SAR)</span>
+                                <!-- <th name="th_taxes"
+                            t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                            <span>Taxes</span>
+                        </th> -->
+                                <th name="th_net_total" class="text-center">
+                                    <span class="text-nowrap">Gross Total<br/>Amount<br/>(SAR)<br />(كمية)</span>
+                                </th>
+                                <th name="th_vat" class="text-center">
+                                    <span class="text-nowrap">VAT 15%<br/>(SAR)<br />( الضريبة نسبة)</span>
+                                </th>
+                                <th name="th_subtotal" class="text-center">
+                                    <span class="m-1 text-nowrap">Total<br/>Amount Incl.<br/> VAT (SAR)</span>
                                 </th>
                             </tr>
                         </thead>
@@ -287,19 +308,19 @@
                                         <td name="td_name">
                                             <span t-field="line.name">Bacon Burger</span>
                                         </td>
-                                        <td name="td_quantity" class="text-end text-nowrap">
-                                            <span t-field="line.product_uom_qty">3</span>
+                                        <td name="td_quantity" class="text-center text-nowrap">
+                                            <span t-field="line.product_uom_qty" t-options="{'widget': 'integer'}">3</span>
                                             <!-- <span t-field="line.product_uom_id">units</span> -->
                                             <span t-if="line.product_packaging_id"> (<span
                                                     t-field="line.product_packaging_qty"
                                                     t-options="{&quot;widget&quot;: &quot;integer&quot;}" /> <span
                                                     t-field="line.product_packaging_id" />) </span>
                                         </td>
-                                        <td name="td_uom_id" class="text-end text-nowrap">
+                                        <td name="td_uom_id" class="text-center text-nowrap">
                                             <span t-field="line.product_uom_id">units</span>
                                         </td>
                                         <td name="td_priceunit" class="text-end text-nowrap">
-                                            <span t-field="line.price_unit">3</span>
+                                            <span t-field="line.price_unit" t-options="{'widget': 'float', 'precision': 2}">3</span>
                                         </td>
                                         <td t-if="display_discount" class="text-end">
                                             <span t-field="line.discount">-</span>
@@ -312,11 +333,15 @@
                                         </td> -->
                                         <td name="td_tax_amount" class="text-end o_price_total">
                                             <span t-field="line.price_tax"
-                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;}" />
+                                                t-options="{'widget': 'float', 'precision': 2}" />
                                         </td>
                                         <td t-if="not line.is_downpayment" name="td_subtotal"
                                             class="text-end o_price_total">
-                                            <span t-field="line.price_subtotal">27.00</span>
+                                            <span t-field="line.price_subtotal" t-options="{'widget': 'float', 'precision': 2}">27.00</span>
+                                        </td>
+                                        <td t-if="not line.is_downpayment" name="td_subtotal"
+                                            class="text-end o_price_total">
+                                            <span class="m-1" t-field="line.price_total" t-options="{'widget': 'float', 'precision': 2}">27.00</span>
                                         </td>
                                     </t>
                                     <t
@@ -350,6 +375,14 @@
                                 </t>
                             </t>
 
+                            <t t-call="custom_pdf_reports.custom_document_tax_totals_template">
+                                <t t-set="tax_totals" t-value="doc.tax_totals" />
+                                <t t-set="currency" t-value="doc.currency_id" />
+                                <t t-set="custom_total_cols" t-value="8" />
+                                <t t-set="show_amount_words" t-value="True" />
+
+                            </t>
+
                             <!-- <t t-set="required_rows" t-value="10" />
                             <t t-set="current_rows" t-value="len(lines_to_report)" />
                             <t t-foreach="range(required_rows - current_rows)" t-as="empty_row">
@@ -364,21 +397,16 @@
                             </t> -->
                         </tbody>
                     </table>
-                    <div class="clearfix" name="so_total_summary">
+                    <!-- <div class="clearfix" name="so_total_summary">
                         <div id="total" class="row mt-n3" name="total">
                             <div
                                 t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
-                                <table class="o_total_table table table-bordered">
+                                <table class="o_total_table table table-bordered"> -->
                                     <!-- Tax totals -->
-                                    <t t-call="custom_pdf_reports.custom_document_tax_totals_template">
-                                        <t t-set="tax_totals" t-value="doc.tax_totals" />
-                                        <t t-set="currency" t-value="doc.currency_id" />
-                                        <t t-set="custom_total_cols" t-value="7" />
-                                    </t>
-                                </table>
+                                <!-- </table>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="oe_structure"></div>
 
                     <div t-if="not doc.signature" class="oe_structure"></div>
@@ -413,24 +441,39 @@
                     </div>
                     <div class="oe_structure" />
 
-
-                        <!-- Signature Fields -->
-                        <t t-set="signature_fields">
-                            <div class="row" style="page-break-inside: avoid; margin-top:50px; font-size:18px;">
-                                <div class="col-1"></div>
-                                <div class="col">
-                                    <strong>
-                                        <b>Prepared By:</b>
-                                    </strong>
-                                </div>
-                                <div class="col-5"></div>
-                                <div class="col">
-                                    <strong>
-                                        <b>Approved By:</b>
-                                    </strong>
-                                </div>
+                    <!-- Signature Fields -->
+                    <t t-set="signature_fields">
+                        <div class="row mt-2" style="padding-top:30px;" t-if="doc.company_id.approve_sign_img">
+                            <div class="col-1"/>
+                            <div class="col">
+                                <!-- <img t-att-src="image_data_uri(doc.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" /> -->
                             </div>
-                        </t>
+                            <div class="col-4"/>
+
+                            <div class="col">
+                                <img t-att-src="image_data_uri(doc.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" />
+                            </div>
+                            <!-- <div class="col"/> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-1"/>
+                            <div class="col">
+                                <span>
+                                    <b>Prepared By:</b>
+                                </span>
+                            </div>
+                            <div class="col-4"/>
+
+                            <div class="col">
+                                <!-- Signature Image -->
+                                <span>
+                                    <b>Approved By:</b>
+                                </span>
+                            </div>
+                            <!-- <div class="col"/> -->
+
+                        </div>
+                    </t>
 
 
                 </div>
