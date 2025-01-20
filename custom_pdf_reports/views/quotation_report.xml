@@ -85,7 +85,7 @@
                                         <strong t-esc="'Quotation No. '" />
                                     </span>
                                     <strong t-if="doc.state in ['sale']">
-                                        <span t-esc="'Order No. '" />
+                                        <span t-esc="'Quotation No. '" />
                                     </strong>
                                     <span t-field="doc.name">SO0000</span>
                                 </h4>
