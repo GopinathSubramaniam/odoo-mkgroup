@@ -512,48 +512,46 @@
                 </style>
                 <div class="page">
                     <div class="oe_structure"/>
-                    <div class="row justify-content-center mb-4">
+                    <div class="row justify-content-center mb-5">
                         <div class="col">
                             <strong><h2 class="mt-2 text-center text-uppercase informations_text" style="font-size: 29px;">REQUEST FOR QUOTATION</h2></strong>
                         </div>
                     </div>
 
-                    <div class="row mt-2" style="font-size: 20px;">
+                    <div class="row mt-4" style="font-size: 20px;">
                         <div class="col-7">
                             <p class="company_details">
-                                <strong style="font-size: 23px;">
-                                    <span t-esc="o.company_id.name" />
-                                </strong>
-                                <t t-if="o.company_id.street">
-                                    <br />
-                                    <span t-esc="o.company_id.street" />
-                                </t>
-                                <t t-if="o.company_id.street2">
-                                    <br />
-                                    <span t-esc="o.company_id.street2" />
-                                </t>
-                                <t t-if="o.company_id.state_id or o.company_id.country_id or o.company_id.zip">
-                                    <br />
-                                    <t t-if="o.company_id.state_id">
-                                        <span t-esc="o.company_id.state_id.name+', '" />
-                                    </t>
-                                    <t t-if="o.company_id.country_id">
-                                        <span t-esc="o.company_id.country_id.name" />
-                                    </t>
-                                    <t t-if="o.company_id.zip">
-                                        <span t-esc="o.company_id.zip+'- '" />
-                                    </t>
-                                </t>
-                                <t t-if="o.company_id.vat or o.company_id.company_registry">
-                                    <br />
-                                    <t t-if="o.company_id.vat">
+                                    <strong style="font-size:24px;">
+                                        <span t-esc="o.company_id.name" />
+                                    </strong>
+                                    <t t-if="o.company_id.name"><br /></t>
+                                    <span t-if="o.company_id.street">
+                                        <span t-esc="o.company_id.street" />
+                                        <br />
+                                    </span>
+                                    <span t-if="o.company_id.street2">
+                                        <span t-esc="o.company_id.street2" />
+                                        <br />
+                                    </span>
+                                    <span t-if="o.company_id.state_id">
+                                        <span t-esc="o.company_id.state_id.name" />
+                                        <t t-if="o.company_id.country_id or o.company_id.zip"><br /></t>
+                                    </span>
+                                    <span t-if="o.company_id.country_id">
+                                        <span t-esc="o.company_id.country_id.name+' - '" />
+                                    </span>
+                                    <span t-if="o.company_id.zip">
+                                        <span t-esc="o.company_id.zip" />
+                                        <br />
+                                    </span>
+                                    <span t-if="o.company_id.vat">
                                         <span t-esc="'VAT Number: '+o.company_id.vat" />
-                                    </t>
-                                    <t t-if="o.company_id.company_registry">
-                                        <span t-esc="', CRN: '+o.company_id.company_registry" />
-                                    </t>
-                                </t>
-                            </p>
+                                        <br/>
+                                    </span>
+                                    <span t-if="o.company_id.company_registry">
+                                        <span t-esc="'CR. No: '+o.company_id.company_registry" />
+                                    </span>
+                                </p>
                             <p>
                                 <strong>Contact Person: </strong><span class="px-1" t-if="o.contact_partner_id" t-field="o.contact_partner_id"/>
                                 <br/>
@@ -573,10 +571,10 @@
                     </div>
 
                     <div class="row mt-4">
-                        <div class="col-8" style="font-size: 23px; color: #bd9311;">
+                        <div class="col-8" style="font-size: 25px; color: #bd9311;">
                             <div t-if="o.name" class="">
                                 <strong>RFQ No: </strong>
-                                <strong t-field="o.name" class="px-1" style="font-size: 24px;"/>
+                                <strong t-field="o.name" class="px-1" style="font-size: 26px;"/>
                             </div>
                         </div>
                     </div>
@@ -632,28 +630,59 @@
                                     </t>
                                 </tr>
                             </t>
+
+                            <t t-set="required_rows" t-value="10" />
+                            <t t-set="current_rows" t-value="len(o.order_line)" />
+                            <t t-foreach="range(required_rows - current_rows)" t-as="empty_row">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </t>
                         </tbody>
                     </table>
 
                     <p t-field="o.notes" class="mt-4"/>
 
                     <div class="oe_structure"/>
-
                     <!-- Signature Fields -->
                     <t t-set="signature_fields">
-                        <div class="row" style="page-break-inside: avoid; margin-top:50px; font-size:18px;">
-                            <div class="col-1"></div>
+                        <div class="row mt-2" style="padding-top:30px;" t-if="o.company_id.company_seal_img">
+                            <div class="col-1"/>
                             <div class="col">
-                                <strong>
+                                <!-- <img t-att-src="image_data_uri(doc.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" /> -->
+                            </div>
+                            <div class="col-4"/>
+
+                            <div class="col">
+                                    <img t-if="o.company_id.company_seal_img" style="height: 160px;"
+                                        t-att-src="image_data_uri(o.company_id.company_seal_img)"
+                                        class="img-fluid"
+                                        alt="Logo" />                            
+                            </div>
+                            <!-- <div class="col"/> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-1"/>
+                            <div class="col">
+                                <span style="font-size:19px;">
                                     <b>Requested By:</b>
-                                </strong>
+                                </span>
                             </div>
-                            <div class="col-5"></div>
+                            <div class="col-4"/>
+
                             <div class="col">
-                                <strong>
+                                <!-- Stamp Image -->
+                                <span class="text-center" style="padding-left:45px; font-size:19px;">
                                     <b>Stamp:</b>
-                                </strong>
+                                </span>
                             </div>
+                            <!-- <div class="col"/> -->
+
                         </div>
                     </t>
                 </div>
