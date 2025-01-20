@@ -10,6 +10,7 @@
         "views/invoice_report.xml",
         "views/quotation_report.xml",
         "views/purchase_report.xml",
+        "views/delivery_report.xml",
     ],
     'installable': True,
     'application': False,
