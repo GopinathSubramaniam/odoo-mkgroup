@@ -356,25 +356,31 @@
                                         <tr>
                                             <th>
                                                 <strong class="m-1">
-                                                    Invoice Date
-                                                    (تاريخ الفاتورة)
+                                                    Invoice Date<br/>
+                                                    <span class="m-1">(تاريخ الفاتورة)</span>
                                                 </strong>
                                             </th>
                                             <th>
                                                 <strong>
-                                                    Delivery Date
+                                                    Delivery Date<br/>
                                                     (تاريخ التسليم)
                                                 </strong>
                                             </th>
                                             <th>
                                                 <strong>
-                                                    Contract/PO No
+                                                    Delivery Note No.<br/>
+                                                    رقم مذكرة التسليم
+                                                </strong>
+                                            </th>
+                                            <th>
+                                                <strong>
+                                                    Contract/PO No<br/>
                                                     (رقم أمر الشراء)
                                                 </strong>
                                             </th>
                                             <th>
                                                 <strong>
-                                                    Due Date
+                                                    Due Date<br/>
                                                     (تاريخ االستحقاق)
                                                 </strong>
                                             </th>
@@ -394,7 +400,12 @@
                                             </td>
                                             <td>
                                                 <strong>
-                                                    <t t-esc="o.ref" />
+                                                    <span t-esc="o.get_delivery_note_names()"/>
+                                                </strong>
+                                            </td>
+                                            <td>
+                                                <strong>
+                                                    <span t-esc="o.ref" class="text-nowrap"/>
                                                 </strong>
                                             </td>
                                             <td>

@@ -7,6 +7,15 @@ class AccountMove(models.Model):
     def _get_name_invoice_report(self):
         res = super()._get_name_invoice_report()
         return 'custom_pdf_reports.report_invoice_document_inherit'
+    
+    def get_delivery_note_names(self):
+        stock_pickings = []
+        for line in self.invoice_line_ids:
+            if line.sale_line_ids:
+                stock_pickings = line.sale_line_ids.order_id.picking_ids
+                break
+        delivery_notes = ', '.join([picking.name for picking in stock_pickings])
+        return delivery_notes or ''
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
