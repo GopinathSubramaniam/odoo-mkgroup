@@ -82,10 +82,10 @@
                             <div class="col-6 mb-2">
                                 <h4 class="informations_text" style="font-size: 26px; color: #af7d0c;">
                                     <span t-if="doc.state in ['draft', 'sent']">
-                                        <strong t-esc="'Quotation No. '" />
+                                        <strong t-esc="'Quotation No.: '" />
                                     </span>
                                     <strong t-if="doc.state in ['sale']">
-                                        <span t-esc="'Quotation No. '" />
+                                        <span t-esc="'Quotation No.: '" />
                                     </strong>
                                     <span t-field="doc.name">SO0000</span>
                                 </h4>
@@ -121,7 +121,7 @@
                             <span t-if="doc.attn_partner_id.phone" t-esc="doc.attn_partner_id.phone" />
                         </p>
 
-                        <h4 style="font-size: 23px;">
+                        <h4 style="font-size: 22px;">
                             <u>Customer Details</u>
                         </h4>
                         <p class="company_details" style="font-size: 21px;">

@@ -13,6 +13,16 @@
                             font-size: 15px;
                             }
 
+                            table tr th,
+                            table tr td{
+                            height: 15px !important;
+                            }
+
+                            .o_main_table tr th,
+                            .o_main_table tr td{
+                            height: 15px !important;
+                            }
+                            
                             .o_total{
                             background-color: #F0B500 !important
                             }
@@ -80,7 +90,7 @@
                     </div> -->
 
                 <div class="row">
-                    <div class="col-8" style="font-size: 20px;">
+                    <div class="col-8" style="font-size: 21px;">
                         <div t-if="o.date_approve" class="">
                             <strong>DATE: </strong>
                             <span t-field="o.date_approve" t-options="{'date_only': 'true'}" class="px-1"/>
@@ -89,25 +99,25 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-8" style="font-size: 22px; color: #bd9311;">
+                    <div class="col-8" style="font-size: 23px; color: #bd9311;">
                         <div t-if="o.name" class="">
                             <strong>PO No: </strong>
-                            <strong t-field="o.name" class="px-1" style="font-size: 21px;"/>
+                            <strong t-field="o.name" class="px-1" style="font-size: 23px;"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-8" style="font-size: 20px;">
+                    <div class="col-8" style="font-size: 23px;">
                         <div class="">
-                            <strong style="font-size: 19px;">QUOTATION No: </strong>
+                            <strong style="font-size: 21px;">QUOTATION No: </strong>
                             <span t-if="o.origin" t-field="o.origin" class="px-1"/>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-5">
                 
-                    <div class="col-6" style="font-size: 20px;">
+                    <div class="col-6" style="font-size: 22px;">
                         <!-- <p class="mb-4 mt-4">
                             <span>ATTN: </span>
                             <span t-if="o.attn_partner_id" t-field="o.attn_partner_id.name" />
@@ -117,42 +127,40 @@
                             <span t-if="o.attn_partner_id.phone" t-esc="o.attn_partner_id.phone" />
                         </p> -->
 
-                        <h4 style="font-size: 20px;">
+                        <h4 style="font-size: 21px;">
                             <strong><u>Supplier Details</u></strong>
                         </h4>
-                        <p class="customer_details">
-                            <strong style="font-size: 19px;">
+                        <p class="company_details" style="font-size:22px;">
+                            <strong style="font-size:24px;">
                                 <span t-esc="o.partner_id.name" />
                             </strong>
-                            <t t-if="o.partner_id.street">
-                                <br />
+                            <t t-if="o.partner_id.name"><br /></t>
+                            <span t-if="o.partner_id.street">
                                 <span t-esc="o.partner_id.street" />
-                            </t>
-                            <t t-if="o.partner_id.street2">
                                 <br />
+                            </span>
+                            <span t-if="o.partner_id.street2">
                                 <span t-esc="o.partner_id.street2" />
-                            </t>
-                            <t t-if="o.partner_id.state_id or o.partner_id.country_id or o.partner_id.zip">
                                 <br />
-                                <t t-if="o.partner_id.state_id">
-                                    <span t-esc="o.partner_id.state_id.name+', '" />
-                                </t>
-                                <t t-if="o.partner_id.country_id">
-                                    <span t-esc="o.partner_id.country_id.name" />
-                                </t>
-                                <t t-if="o.partner_id.zip">
-                                    <span t-esc="o.partner_id.zip+'- '" />
-                                </t>
-                            </t>
-                            <t t-if="o.partner_id.vat or o.partner_id.company_registry">
+                            </span>
+                            <span t-if="o.partner_id.state_id">
+                                <span t-esc="o.partner_id.state_id.name" />
+                                <t t-if="o.partner_id.country_id or o.partner_id.zip"><br /></t>
+                            </span>
+                            <span t-if="o.partner_id.country_id">
+                                <span t-esc="o.partner_id.country_id.name+' - '" />
+                            </span>
+                            <span t-if="o.partner_id.zip">
+                                <span t-esc="o.partner_id.zip" />
                                 <br />
-                                <t t-if="o.partner_id.vat">
-                                    <span t-esc="'VAT Number: '+o.partner_id.vat" />
-                                </t>
-                                <t t-if="o.partner_id.company_registry">
-                                    <span t-esc="', CRN: '+o.partner_id.company_registry" />
-                                </t>
-                            </t>
+                            </span>
+                            <span t-if="o.partner_id.vat">
+                                <span t-esc="'VAT Number: '+o.partner_id.vat" />
+                                <br/>
+                            </span>
+                            <span t-if="o.partner_id.company_registry">
+                                <span t-esc="'CR. No: '+o.partner_id.company_registry" />
+                            </span>
                         </p>
 
                         <!-- <h4 class="mt-3">
@@ -160,7 +168,7 @@
                             <span style="font-size: 22px;" t-if="o.subject_ref" t-field="o.subject_ref" />
                         </h4> -->
                     </div>
-                    <div class="col-6" style="font-size: 20px;">
+                    <div class="col-6">
                         <!-- <p class="mb-4 mt-4">
                             <span>ATTN: </span>
                             <span t-if="o.attn_partner_id" t-field="o.attn_partner_id.name" />
@@ -170,42 +178,40 @@
                             <span t-if="o.attn_partner_id.phone" t-esc="o.attn_partner_id.phone" />
                         </p> -->
 
-                        <h4 style="font-size: 20px;">
+                        <h4 style="font-size: 21px;">
                             <strong><u>Buyer Details</u></strong>
                         </h4>
-                        <p class="company_details">
-                            <strong style="font-size: 19px;">
+                        <p class="company_details" style="font-size: 22px;">
+                            <strong style="font-size:24px;">
                                 <span t-esc="o.company_id.name" />
                             </strong>
-                            <t t-if="o.company_id.street">
-                                <br />
+                            <t t-if="o.company_id.name"><br /></t>
+                            <span t-if="o.company_id.street">
                                 <span t-esc="o.company_id.street" />
-                            </t>
-                            <t t-if="o.company_id.street2">
                                 <br />
+                            </span>
+                            <span t-if="o.company_id.street2">
                                 <span t-esc="o.company_id.street2" />
-                            </t>
-                            <t t-if="o.company_id.state_id or o.company_id.country_id or o.company_id.zip">
                                 <br />
-                                <t t-if="o.company_id.state_id">
-                                    <span t-esc="o.company_id.state_id.name+', '" />
-                                </t>
-                                <t t-if="o.company_id.country_id">
-                                    <span t-esc="o.company_id.country_id.name" />
-                                </t>
-                                <t t-if="o.company_id.zip">
-                                    <span t-esc="o.company_id.zip+'- '" />
-                                </t>
-                            </t>
-                            <t t-if="o.company_id.vat or o.company_id.company_registry">
+                            </span>
+                            <span t-if="o.company_id.state_id">
+                                <span t-esc="o.company_id.state_id.name" />
+                                <t t-if="o.company_id.country_id or o.company_id.zip"><br /></t>
+                            </span>
+                            <span t-if="o.company_id.country_id">
+                                <span t-esc="o.company_id.country_id.name+' - '" />
+                            </span>
+                            <span t-if="o.company_id.zip">
+                                <span t-esc="o.company_id.zip" />
                                 <br />
-                                <t t-if="o.company_id.vat">
-                                    <span t-esc="'VAT Number: '+o.company_id.vat" />
-                                </t>
-                                <t t-if="o.company_id.company_registry">
-                                    <span t-esc="', CRN: '+o.company_id.company_registry" />
-                                </t>
-                            </t>
+                            </span>
+                            <span t-if="o.company_id.vat">
+                                <span t-esc="'VAT Number: '+o.company_id.vat" />
+                                <br/>
+                            </span>
+                            <span t-if="o.company_id.company_registry">
+                                <span t-esc="'CR. No: '+o.company_id.company_registry" />
+                            </span>
                         </p>
 
                         <!-- <h4 class="mt-3">
@@ -214,44 +220,31 @@
                         </h4> -->
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-1">
                     <div class="col-8" style="font-size: 20px;">
                         <div class="">
-                            <strong style="font-size: 18px;">RFQ No: </strong>
+                            <strong style="font-size: 21px;">RFQ No: </strong>
                             <span t-if="o.name" t-field="o.name" class="px-1"/>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-1">
                     <div class="col-8" style="font-size: 20px;">
                         <div class="">
-                            <strong style="font-size: 18px;">DELIVERY LOCATION: </strong>
+                            <strong style="font-size: 20px;">DELIVERY LOCATION: </strong>
                             <span t-if="o.incoterm_location" t-field="o.incoterm_location" class="px-1"/>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-1">
                     <div class="col-8" style="font-size: 20px;">
                         <div class="">
-                            <strong style="font-size: 18px;">DISPATCH THROUGH: </strong>
+                            <strong style="font-size: 20px;">DISPATCH THROUGH: </strong>
                             <span t-if="o.incoterm_location" t-field="o.incoterm_location" class="px-1"/>
                         </div>
                     </div>
                 </div>
-                <!-- <t t-set="address">
-                    <div t-field="o.partner_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
-                </t>
-                <t t-if="o.dest_address_id">
-                    <t t-set="information_block">
-                        <strong>Shipping address</strong>
-                        <div t-if="o.dest_address_id">
-                            <div t-field="o.dest_address_id"
-                                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}' name="purchase_shipping_address"/>
-                        </div>
 
-                    </t>
-                </t> -->
                 <div class="page mt-5">
                     <div class="oe_structure"/>
 
@@ -343,15 +336,16 @@
                                         <td id="product" class="text-start">
                                             <span t-field="line.name" />
                                         </td>
-                                        <td id="product_uom_id" class="text-start">
-                                            <span t-field="line.product_uom_id.name" groups="uom.group_uom" />
-                                        </td>
+                                        
                                         <td class="text-end">
-                                            <span t-field="line.product_qty" />
+                                            <span t-field="line.product_qty" t-options="{'widget': 'integer'}"/>
                                             <span t-if="line.product_packaging_id"> (<span
                                                     t-field="line.product_packaging_qty"
                                                     t-options="{&quot;widget&quot;: &quot;integer&quot;}" /> <span
                                                     t-field="line.product_packaging_id" />) </span>
+                                        </td>
+                                        <td id="product_uom_id" class="text-start">
+                                            <span t-field="line.product_uom_id.name" groups="uom.group_uom" />
                                         </td>
                                         <td class="text-end">
                                             <span t-field="line.price_unit" />
@@ -402,41 +396,47 @@
                                     </tr>
                                 </t>
                             </t>
-
-                            <!-- <t t-set="required_rows" t-value="10" />
+                            <t t-set="required_rows" t-value="5" />
                             <t t-set="current_rows" t-value="len(o.order_line)" />
                             <t t-foreach="range(required_rows - current_rows)" t-as="empty_row">
                                 <tr>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
                                 </tr>
-                            </t> -->
+                            </t>
+                            <t t-call="custom_pdf_reports.custom_document_tax_totals_template">
+                                <t t-set="tax_totals" t-value="o.tax_totals"/>
+                                <t t-set="currency" t-value="o.currency_id"/>
+                                <t t-set="custom_total_cols" t-value="8"/>
+                                <t t-set="show_amount_words" t-value="True"/>
+                            </t>
                         </tbody>
                     </table>
 
-                    <div id="total" class="row justify-content-end mt-n3">
+                    <!-- <div id="total" class="row justify-content-end mt-n3">
                         <div class="col-12">
-                            <table class="o_total_table table table-bordered">
-                                <t t-call="custom_pdf_reports.custom_document_tax_totals_template">
+                            <table class="o_total_table table table-bordered"> -->
+                                <!-- <t t-call="custom_pdf_reports.custom_document_tax_totals_template">
                                     <t t-set="tax_totals" t-value="o.tax_totals"/>
                                     <t t-set="currency" t-value="o.currency_id"/>
                                     <t t-set="custom_total_cols" t-value="8"/>
                                     <t t-set="show_amount_words" t-value="True"/>
-                                </t>
-                            </table>
+                                </t> -->
+                            <!-- </table>
                         </div>
-                    </div>
+                    </div> -->
 
                     <p t-field="o.notes" class="mt-4"/>
                     <div class="oe_structure"/>
 
                     <div class='mt-4' t-if="o.payment_term_id">
-                        <strong style="font-size: 18px;">Payment Terms: </strong>
-                        <span t-field="o.payment_term_id" class="mt-4"></span>
+                        <span t-field="o.payment_term_id.note" class="mt-4"></span>
                     </div>
                     <t t-set="base_address" t-value="o.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
                     <t t-set="portal_url" t-value="base_address + '/my/purchase/' + str(o.id) + '#portal_connect_software_modal'"/>
