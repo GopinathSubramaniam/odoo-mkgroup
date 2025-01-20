@@ -11,37 +11,46 @@
             <t t-call="custom_pdf_reports.custom_report_external_layout">
 
                 <style>
-                    .sale_tbody tr th,
-                    .sale_tbody tr td{
-                    height: 18px !important;
+                    .text-theme{
+                    color: #F0B500 !important;
                     }
 
-                    .sale_thead{
-                    background-color: #ffc134;
+                    .custom_table th, .custom_table td{
+                    font-size: 15px;
                     }
 
-                    .informations_text{
-                    color: #af7d0c;
+                    .o_total{
+                    background-color: #F0B500 !important
+                    }
+
+                    .o_header_name {
                     font-size: 26px;
                     }
-                    .customer_details{
-                    font-size: 20px;
+
+                    .company_details {
+                    font-size: 18px;
+                    }
+
+                    .table_head{
+                    background-color: #ffc134 !important;
+                    display: table-row-group;
                     }
 
                     .table-bordered {
-                        border-collapse: collapse;
-                        width: 100%; /* Optional: Makes the table span the full width of its container */
+                    border-collapse: collapse;
+                    width: 100%; /* Optional: Makes the table span the full width of its
+                    container */
                     }
 
                     .table-bordered th,
                     .table-bordered td {
-                        border: 1px solid #000; /* Black border */
-                        padding: 8px; /* Adds padding for better readability */
-                        text-align: left; /* Aligns content to the left */
+                    border: 1px solid #000; /* Black border */
+                    padding: 8px; /* Adds padding for better readability */
+                    text-align: left; /* Aligns content to the left */
                     }
 
                     .table-bordered th {
-                        background-color: #ffce5f; /* Light gray background for headers */
+                    background-color: #ffce5f; /* Light gray background for headers */
                     }
 
                 </style>
@@ -70,7 +79,7 @@
                 <div class="row justify-content-start mt-5 mb-3">
                     <div class="col-12">
                         <div class="row mt-2 mb-2" id="informations">
-                            <div class="col-8 mb-2">
+                            <div class="col-6 mb-2">
                                 <h4 class="informations_text">
                                     <span t-if="doc.state in ['draft', 'sent']">
                                         <span t-esc="'Quotation No. '" />
@@ -81,7 +90,7 @@
                                     <span t-field="doc.name">SO0000</span>
                                 </h4>
                             </div>
-                            <div t-if="doc.date_order" class="col mb-2" name="informations_date">
+                            <div t-if="doc.date_order" class="col-6 mb-2" name="informations_date">
                                 <h4 class="informations_text">
                                     <span t-if="doc.state in ['draft', 'sent']">
                                         <span t-esc="'Date: '" />
@@ -248,7 +257,7 @@
                     <t t-set="display_discount" t-value="any(l.discount for l in lines_to_report)" />
 
                     <div class="oe_structure"></div>
-                    <table class="o_has_total_table table o_main_table table-bordered">
+                    <table class="o_has_total_table table o_main_table table-bordered custom_table mt-2">
                         <!-- In case we want to repeat the header, remove "display: table-row-group" -->
                         <thead class="table_head">
                             <tr>
