@@ -356,15 +356,15 @@
                                         </td>
                                         <td class="text-end">
                                             <span t-field="line.price_subtotal"
-                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}" />
+                                                t-options="{'widget': 'float', 'precision': 2}" />
                                         </td>
                                         <td class="text-end">
                                             <span t-field="line.price_tax"
-                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}" />
+                                                t-options="{'widget': 'float', 'precision': 2}" />
                                         </td>
                                         <td class="text-end">
-                                            <span t-field="line.price_total"
-                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                            <span t-field="line.price_total" class="m-1"
+                                                t-options="{'widget': 'float', 'precision': 2}" />
                                         </td>
                                         <!-- <td class="text-end">
                                             <span
@@ -391,7 +391,7 @@
                                         <td colspan="99" id="subtotal">
                                             <strong class="mr16">Subtotal</strong>
                                             <span t-out="current_subtotal"
-                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}" />
+                                                t-options="{'widget': 'float', 'precision': 2}" />
                                         </td>
                                     </tr>
                                 </t>
