@@ -24,7 +24,7 @@
 
                                 <span t-att-class="oe_subtotal_footer_separator"
                                     t-out="subtotal['base_amount_currency']"
-                                    t-options='{"widget": "monetary", "display_currency": currency}'
+                                    t-options='{"widget": "float", "precision": 2}'
                                 >
                                     27.00</span>
                             </strong>
@@ -46,7 +46,7 @@
                                 <td class="text-end o_price_total" colspan="2">
                                     <strong class="text-nowrap o_amount m-1"
                                         t-out="tax_group['tax_amount_currency']"
-                                        t-options='{"widget": "monetary", "display_currency": currency}'
+                                        t-options='{"widget": "float", "precision": 2}'
                                     >
                                         1.05</strong>
                                 </td>
@@ -59,14 +59,14 @@
                                     <span> on </span>
                                     <strong class="text-nowrap o_amount m-1"
                                         t-out="tax_group['display_base_amount_currency']"
-                                        t-options='{"widget": "monetary", "display_currency": currency}'
+                                        t-options='{"widget": "float", "precision": 2}'
                                     >
                                         27.00</strong>
                                 </td>
                                 <td class="text-end o_price_total o_amount" colspan="2">
                                     <strong class="text-nowrap m-1"
                                         t-out="tax_group['tax_amount_currency']"
-                                        t-options='{"widget": "monetary", "display_currency": currency}'
+                                        t-options='{"widget": "float", "precision": 2}'
                                     >
                                         4.05</strong>
                                 </td>
@@ -80,7 +80,7 @@
                     <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1" >Rounding</td>
                     <td class="text-end" colspan="2">
                         <span t-out="tax_totals['cash_rounding_base_amount_currency']"
-                            t-options='{"widget": "monetary", "display_currency": currency}'
+                                t-options='{"widget": "float", "precision": 2}'
                         >0</span>
                     </td>
                 </tr>
@@ -94,7 +94,7 @@
                     <td class="text-end" colspan="2">
                         <strong t-out="tax_totals['total_amount_currency']"
                             class="o_total_words m-1"
-                            t-options='{"widget": "monetary", "display_currency": currency}'
+                            t-options='{"widget": "float", "precision": 2}'
                         >31.05</strong>
                     </td>
                 </tr>
