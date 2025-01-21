@@ -12,7 +12,7 @@ class AccountMove(models.Model):
         stock_pickings = []
         for line in self.invoice_line_ids:
             if line.sale_line_ids:
-                stock_pickings = line.sale_line_ids.order_id.picking_ids
+                stock_pickings = line.sale_line_ids.order_id.picking_ids.filtered(lambda picking: picking.state in ('assigned,done'))
                 break
         delivery_notes = ', '.join([picking.name for picking in stock_pickings])
         return delivery_notes or ''
