@@ -339,7 +339,7 @@
                                     Credit Note</span>
                                 <span t-elif="o.move_type == 'in_refund'">Vendor Credit Note</span>
                                 <span t-elif="o.move_type == 'in_invoice'">Vendor Bill</span>
-                                <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>
+                                <span t-if="o.name != '/'" t-field="o.name"></span>
                             </span>
                         </t>
                         <h3 class="text-theme mt-2">

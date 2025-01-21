@@ -268,12 +268,14 @@
                                         <th name="th_sm_product">DESCRIPTION</th>
                                         <!-- <th name="th_sm_ordered" class="text-end">Ordered</th> -->
                                         <th name="th_sm_quantity" class="text-end">QUANTITY</th>
+                                        <th name="th_uom" class="text-center">UNIT</th>
+                                        <th name="th_remarks" class="text-center px-3">REMARKS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
                                     <tr t-foreach="lines" t-as="move">
-                                        <td>
+                                        <td class="text-center">
                                             <span class="text-center" t-esc="index"/>
                                             <t t-set="index" t-value="index+1"/>
                                         </td>
@@ -283,19 +285,35 @@
                                                 <span t-field="move.description_picking">Description on transfer</span>
                                             </p>
                                         </td>
-                                        <td class="text-end">
+                                        <!-- <td class="text-end">
                                             <span t-field="move.product_uom_qty">3.00</span>
-                                            <span t-field="move.product_uom" groups="uom.group_uom">units</span>
                                             <span t-if="move.product_packaging_id">
                                                 (<span t-field="move.product_packaging_qty" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="move.product_packaging_id"/>)
                                             </span>
-                                        </td>
+                                        </td> -->
                                         <td class="text-end">
                                             <span t-field="move.quantity">3.00</span>
-                                            <span t-field="move.product_uom" groups="uom.group_uom">units</span>
                                             <span t-if="move.product_packaging_id">
                                                 (<span t-field="move.product_packaging_quantity" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="move.product_packaging_id"/>)
                                             </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="move.product_uom" groups="uom.group_uom">units</span>
+                                        </td>
+                                        <td class="" name="move_line_remarks">
+                                            <span></span>
+                                        </td>
+                                        
+                                    </tr>
+                                    <t t-set="total_quantity" t-value="0"/>
+                                    <t t-foreach="lines" t-as="move">
+                                        <t t-set="total_quantity" t-value="total_quantity+move.quantity"/>
+                                    </t>
+
+
+                                    <tr style="border-bottom:solid 1px #000 !important;">
+                                        <td class="text-center" colspan="5" style="border-bottom:solid 1px #000 !important">
+                                            <strong>TOTAL QUANTITY:</strong><strong class="" style="padding-left:490px;" t-esc="total_quantity" t-options="{'widget': 'integer'}"/>
                                         </td>
                                     </tr>
                                 </tbody>
