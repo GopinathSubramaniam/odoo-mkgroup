@@ -256,6 +256,13 @@
                                     <span t-esc="delivery_partner_id.zip" />
                                     <br />
                                 </span>
+                                <span t-if="delivery_partner_id.vat">
+                                    <span t-esc="'VAT Number: '+delivery_partner_id.vat" />
+                                    <br/>
+                                </span>
+                                <span t-if="delivery_partner_id.company_registry">
+                                    <span t-esc="'CR. No: '+delivery_partner_id.company_registry" />
+                                </span>
                             </p>
                         </div>
                     </div>
