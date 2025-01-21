@@ -130,7 +130,7 @@
                         <h4 style="font-size: 21px;">
                             <strong><u>Supplier Details</u></strong>
                         </h4>
-                        <p class="company_details" style="font-size:22px;">
+                        <p class="company_details" style="font-size:20px;">
                             <strong style="font-size:24px;">
                                 <span t-esc="o.partner_id.name" />
                             </strong>
@@ -181,7 +181,7 @@
                         <h4 style="font-size: 21px;">
                             <strong><u>Buyer Details</u></strong>
                         </h4>
-                        <p class="company_details" style="font-size: 22px;">
+                        <p class="company_details" style="font-size: 20px;">
                             <strong style="font-size:24px;">
                                 <span t-esc="o.company_id.name" />
                             </strong>

@@ -8,7 +8,7 @@
         <tr t-foreach="aggregated_lines" t-as="line">
 
                 <td class="text-center">
-                    <span t-esc="index"/>
+                    <span class="m-1" t-esc="index"/>
                     <t t-set="index" t-value="index+1"/>
                 </td>
                 <td>
@@ -264,7 +264,7 @@
                             <table class="table table-bordered custom_table" t-if="o.state!='done'">
                                 <thead>
                                     <tr>
-                                        <th name="th_index"  class="text-center">#</th>
+                                        <th name="th_index"  class="text-center"><span class="m-1">#</span></th>
                                         <th name="th_sm_product">DESCRIPTION</th>
                                         <!-- <th name="th_sm_ordered" class="text-end">Ordered</th> -->
                                         <th name="th_sm_quantity" class="text-end">QUANTITY</th>
@@ -276,7 +276,7 @@
                                     <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
                                     <tr t-foreach="lines" t-as="move">
                                         <td class="text-center">
-                                            <span class="text-center" t-esc="index"/>
+                                            <span class="text-center m-1" t-esc="index"/>
                                             <t t-set="index" t-value="index+1"/>
                                         </td>
                                         <td>
