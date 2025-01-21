@@ -445,7 +445,7 @@
                         </div>
                     </div>
 
-                    <div class="row" style="font-size: 19px; padding-top: 80px;" >
+                    <div class="row avoid-page-break-inside" style="font-size: 19px; padding-top: 80px;" >
                         <div class="col-1"/>
                         <div class="col">
                             <span>
@@ -457,7 +457,7 @@
                         <div class="col">
                             <!-- Signature Image -->
                             <span>
-                                <b>Approved By:</b>
+                                <b>Received By:</b>
                             </span>
                         </div>
                         <!-- <div class="col"/> -->
