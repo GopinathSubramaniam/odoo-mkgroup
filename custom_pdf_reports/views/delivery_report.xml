@@ -50,10 +50,19 @@
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
 
                 <t>
-                    <t if="o.partner_id" t-set="cust_delivery_partner_id" t-value="o.partner_id"/>
+                    <t t-if="o.picking_type_id.code=='incoming'">
+                        <t t-set="delivery_partner_id" t-value="o.picking_type_id.warehouse_id.partner_id"/>                    
+                    </t>
+                    <t t-elif="o.picking_type_id.code=='outgoing'">
+                        <t t-set="delivery_partner_id" t-value="o.partner_id"/>
+                    </t>
+                    <t t-if="o.partner_id.parent_id">
+                        <t t-set="partner_id" t-value="o.partner_id.parent_id"/>                
+                    </t>
+                    <t t-else="">
+                        <t t-set="partner_id" t-value="o.partner_id"/>                
+                    </t>
 
-                    <t t-if="o.partner_id.parent_id" t-set="cust_partner_id" t-value="o.partner_id.parent_id"/>
-                    <t t-else="o.partner_id" t-set="cust_partner_id" t-value="o.partner_id"/>
                 </t>
                 
                 <!-- <t t-set="address">
@@ -177,39 +186,42 @@
                     <div class="row">
                         <div class="col-6 mt-3" style="font-size: 22px;">
 
-                            <h4 style="font-size: 22px;">
+                            <h4 style="font-size: 22px;" t-if="o.picking_type_id.code=='outgoing'">
                                 <u>Customer Details:</u>
+                            </h4>
+                            <h4 style="font-size: 22px;" t-elif="o.picking_type_id.code=='incoming'">
+                                <u>Vendor Details:</u>
                             </h4>
                             <p class="company_details" style="font-size: 20px;">
                                 <strong style="font-size:24px;">
-                                    <span t-esc="cust_partner_id.name" />
+                                    <span t-esc="partner_id.name" />
                                 </strong>
-                                <t t-if="cust_partner_id.name"><br /></t>
-                                <span t-if="cust_partner_id.street">
-                                    <span t-esc="cust_partner_id.street" />
+                                <t t-if="partner_id.name"><br /></t>
+                                <span t-if="partner_id.street">
+                                    <span t-esc="partner_id.street" />
                                     <br />
                                 </span>
-                                <span t-if="cust_partner_id.street2">
-                                    <span t-esc="cust_partner_id.street2" />
+                                <span t-if="partner_id.street2">
+                                    <span t-esc="partner_id.street2" />
                                     <br />
                                 </span>
-                                <span t-if="cust_partner_id.state_id">
-                                    <span t-esc="cust_partner_id.state_id.name" />
-                                    <t t-if="cust_partner_id.country_id or cust_partner_id.zip"><br /></t>
+                                <span t-if="partner_id.state_id">
+                                    <span t-esc="partner_id.state_id.name" />
+                                    <t t-if="partner_id.country_id or partner_id.zip"><br /></t>
                                 </span>
-                                <span t-if="cust_partner_id.country_id">
-                                    <span t-esc="cust_partner_id.country_id.name+' - '" />
+                                <span t-if="partner_id.country_id">
+                                    <span t-esc="partner_id.country_id.name+' - '" />
                                 </span>
-                                <span t-if="cust_partner_id.zip">
-                                    <span t-esc="cust_partner_id.zip" />
+                                <span t-if="partner_id.zip">
+                                    <span t-esc="partner_id.zip" />
                                     <br />
                                 </span>
-                                <span t-if="cust_partner_id.vat">
-                                    <span t-esc="'VAT Number: '+cust_partner_id.vat" />
+                                <span t-if="partner_id.vat">
+                                    <span t-esc="'VAT Number: '+partner_id.vat" />
                                     <br/>
                                 </span>
-                                <span t-if="cust_partner_id.company_registry">
-                                    <span t-esc="'CR. No: '+cust_partner_id.company_registry" />
+                                <span t-if="partner_id.company_registry">
+                                    <span t-esc="'CR. No: '+partner_id.company_registry" />
                                 </span>
                             </p>
                         </div>
@@ -218,28 +230,30 @@
                             <h4 style="font-size: 22px;">
                                 <u>Delivery Address:</u>
                             </h4>
-                            <p class="company_details" style="font-size: 20px;" t-if="cust_delivery_partner_id!=cust_partner_id">
+                            <p class="company_details" style="font-size: 20px;" t-if="(delivery_partner_id!=partner_id and o.picking_type_id.code=='outgoing') or (delivery_partner_id and o.picking_type_id.code=='incoming')">
                                 <strong style="font-size:24px;">
-                                    <span t-esc="cust_partner_id.name" />
+                                    <span t-if="o.picking_type_id.code=='outgoing'" t-esc="partner_id.name" />
+                                    <span t-elif="o.picking_type_id.code=='incoming'" t-esc="delivery_partner_id.name" />
+                                    <br/>
                                 </strong>
-                                <t t-if="cust_partner_id.name"><br /></t>
-                                <span t-if="cust_delivery_partner_id.street">
-                                    <span t-esc="cust_delivery_partner_id.street" />
+                                <!-- <t t-if="partner_id.name"><br /></t> -->
+                                <span t-if="delivery_partner_id.street">
+                                    <span t-esc="delivery_partner_id.street" />
                                     <br />
                                 </span>
-                                <span t-if="cust_delivery_partner_id.street2">
-                                    <span t-esc="cust_delivery_partner_id.street2" />
+                                <span t-if="delivery_partner_id.street2">
+                                    <span t-esc="delivery_partner_id.street2" />
                                     <br />
                                 </span>
-                                <span t-if="cust_delivery_partner_id.state_id">
-                                    <span t-esc="cust_delivery_partner_id.state_id.name" />
-                                    <t t-if="cust_delivery_partner_id.country_id or cust_delivery_partner_id.zip"><br /></t>
+                                <span t-if="delivery_partner_id.state_id">
+                                    <span t-esc="delivery_partner_id.state_id.name" />
+                                    <t t-if="delivery_partner_id.country_id or delivery_partner_id.zip"><br /></t>
                                 </span>
-                                <span t-if="cust_delivery_partner_id.country_id">
-                                    <span t-esc="cust_delivery_partner_id.country_id.name+' - '" />
+                                <span t-if="delivery_partner_id.country_id">
+                                    <span t-esc="delivery_partner_id.country_id.name+' - '" />
                                 </span>
-                                <span t-if="cust_delivery_partner_id.zip">
-                                    <span t-esc="cust_delivery_partner_id.zip" />
+                                <span t-if="delivery_partner_id.zip">
+                                    <span t-esc="delivery_partner_id.zip" />
                                     <br />
                                 </span>
                             </p>
@@ -267,7 +281,7 @@
                                         <th name="th_index"  class="text-center"><span class="m-1">#</span></th>
                                         <th name="th_sm_product">DESCRIPTION</th>
                                         <!-- <th name="th_sm_ordered" class="text-end">Ordered</th> -->
-                                        <th name="th_sm_quantity" class="text-end">QUANTITY</th>
+                                        <th name="th_sm_quantity" class="text-center">QUANTITY</th>
                                         <th name="th_uom" class="text-center">UNIT</th>
                                         <th name="th_remarks" class="text-center px-3">REMARKS</th>
                                     </tr>
@@ -291,8 +305,8 @@
                                                 (<span t-field="move.product_packaging_qty" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="move.product_packaging_id"/>)
                                             </span>
                                         </td> -->
-                                        <td class="text-end">
-                                            <span t-field="move.quantity">3.00</span>
+                                        <td class="text-center">
+                                            <span t-field="move.quantity" t-options="{'widget': 'integer'}">3.00</span>
                                             <span t-if="move.product_packaging_id">
                                                 (<span t-field="move.product_packaging_quantity" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="move.product_packaging_id"/>)
                                             </span>
@@ -305,17 +319,22 @@
                                         </td>
                                         
                                     </tr>
+
                                     <t t-set="total_quantity" t-value="0"/>
                                     <t t-foreach="lines" t-as="move">
                                         <t t-set="total_quantity" t-value="total_quantity+move.quantity"/>
                                     </t>
-
-
-                                    <tr style="border-bottom:solid 1px #000 !important;">
-                                        <td class="text-center" colspan="5" style="border-bottom:solid 1px #000 !important">
-                                            <strong>TOTAL QUANTITY:</strong><strong class="" style="padding-left:490px;" t-esc="total_quantity" t-options="{'widget': 'integer'}"/>
+                                    <tr style="border: none;">
+                                        <td class="text-center" colspan="2" style="border: none;">
+                                            <strong>TOTAL QUANTITY:</strong>
                                         </td>
+                                        <td colspan="1" class="text-center" style="border: none;">
+                                            <strong t-esc="total_quantity" t-options="{'widget': 'integer'}"/>
+                                        </td>
+                                        <td colspan="2" style="border: none;"></td>
+
                                     </tr>
+
                                 </tbody>
                             </table>
                             <table class="table table-bordered custom_table mt48" t-elif="o.move_line_ids and o.state=='done'" name="stock_move_line_table">
@@ -391,10 +410,15 @@
                                             </t>
 
 
-                                            <tr style="border-bottom:solid 1px #000 !important;">
-                                                <td class="text-center" colspan="5" style="border-bottom:solid 1px #000 !important">
-                                                    <strong>TOTAL QUANTITY:</strong><strong class="" style="padding-left:490px;" t-esc="total_quantity" t-options="{'widget': 'integer'}"/>
+                                            <tr style="border: none;">
+                                                <td class="text-center" colspan="2" style="border: none;">
+                                                    <strong>TOTAL QUANTITY:</strong>
                                                 </td>
+                                                <td colspan="1" class="text-center" style="border: none;">
+                                                    <strong t-esc="total_quantity" t-options="{'widget': 'integer'}"/>
+                                                </td>
+                                                <td colspan="2" style="border: none;"></td>
+
                                             </tr>
 
                                         </t>
@@ -402,6 +426,7 @@
                                     </t>
                                 </tbody>
                             </table>
+
                             </div>
                         </div>
                     
