@@ -20,7 +20,7 @@
 #
 ################################################################################
 from odoo import fields, models
-
+from odoo.tools.sql import SQL
 
 class PurchaseReport(models.Model):
     """Inherit purchase_report to add field brand_id"""
@@ -31,15 +31,14 @@ class PurchaseReport(models.Model):
 
     def _select(self):
         """Brand in pivot view."""
-        res = super(PurchaseReport, self)._select()
+        res = super(PurchaseReport, self)._select().code
         query = res.split('t.categ_id as category_id,', 1)
-        res = query[0] + 't.categ_id as category_id,t.brand_id as brand_id,' + \
-              query[1]
-        return res
+        res = query[0] + 't.categ_id as category_id,t.brand_id as brand_id,' + query[1]
+        return SQL(res)
 
     def _group_by(self):
         """Group with brand"""
-        res = super(PurchaseReport, self)._group_by()
+        res = super(PurchaseReport, self)._group_by().code
         query = res.split('t.categ_id,', 1)
         res = query[0] + 't.categ_id,t.brand_id,' + query[1]
-        return res
+        return SQL(res)
