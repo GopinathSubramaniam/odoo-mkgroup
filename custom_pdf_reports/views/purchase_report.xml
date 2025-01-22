@@ -561,11 +561,11 @@
                         </div>
                         <div class="col-5">
                             <p>
-                                <strong>RFQ Date: </strong><span class="px-1" t-if="o.date_order" t-esc="o.date_order.strftime('%m/%d/%Y')"/>
+                                <strong>RFQ Date: </strong><span class="px-1" t-if="o.date_order" t-field="o.date_order" options='{"widget": "date","format": "dd-MM-yyyy"}'/>
                                 <br/>
                                 <strong>Delivery Location: </strong><span class="px-1" t-if="o.incoterm_location" t-field='o.incoterm_location'/>
                                 <br/>
-                                <strong>Delivery Date: </strong><span class="px-1" t-if="o.date_planned" t-esc="o.date_planned.strftime('%m/%d/%Y')"/>
+                                <strong>Delivery Date: </strong><span class="px-1" t-if="o.date_planned" t-field="o.date_planned" options='{"widget": "date","format": "dd-MM-yyyy"}'/>
                             </p>
                         </div>
                     </div>
@@ -606,7 +606,7 @@
                                             <span t-field="order_line.name"/>
                                         </td>
                                         <td class="text-end">
-                                            <span t-field="order_line.product_qty"/>
+                                            <span t-field="order_line.product_qty" t-options="{'widget': 'integer'}"/>
                                             <!-- <span t-field="order_line.product_uom_id" groups="uom.group_uom"/> -->
                                             <span t-if="order_line.product_packaging_id">
                                                 (<span t-field="order_line.product_packaging_qty" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="order_line.product_packaging_id"/>)
