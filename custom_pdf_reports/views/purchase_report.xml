@@ -583,8 +583,8 @@
                         <thead style="display: table-row-group">
                             <tr>
                                 <th name="th_description" class="text-center"><strong class="m-1">#</strong></th>
-                                <th name="th_description"><strong class="m-1">Description</strong></th>
-                                <th name="th_quantity" class="text-center"><strong class="m-1">Qty</strong></th>
+                                <th name="th_description"><strong class="m-1">DESCRIPTION</strong></th>
+                                <th name="th_quantity" class="text-center"><strong class="m-1">QTY</strong></th>
                                 <th name="th_uom" class="text-center"><strong class="m-1">UNIT</strong></th>
                                 <th name="th_brand" class="text-center"><strong class="m-1">BRAND/MAKE</strong></th>
                                 <th name="th_remarks" class="text-center"><strong class="m-1 text-nowrap"> REMARKS </strong></th>
