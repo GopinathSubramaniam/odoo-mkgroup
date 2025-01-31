@@ -28,7 +28,7 @@
                     <tr class="o_subtotal">
                         <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1" class="mr-1">
                             <!-- <span t-out="subtotal['name']">Untaxed Amount</span> -->
-                            <span class="o_total_label m-1">Total Gross Amount (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي (ريال سعودي)</span></span>
+                            <span class="o_total_label m-1 o_total_words_bg">Total Gross Amount (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي (ريال سعودي)</span></span>
 
                         </td>
                         <td class="text-end o_amount" colspan="2">
