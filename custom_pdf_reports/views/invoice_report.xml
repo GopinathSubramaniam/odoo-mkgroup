@@ -16,7 +16,7 @@
                 .o_total_words_bg { 
                     <!-- background-color: #af7d0c !important;  -->
                     background-color: #ffce5f !important; 
-                    color: #000000;
+                    color: #000000 !important;
                     font-weight: bold;
                 } 
 
