@@ -100,7 +100,7 @@
                 amount with all taxes-->
                 <tr class="o_total o_total_words_bg">
                     <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
-                        <strong class="text-nowrap o_total_label o_total_words_bg m-1">Total Gross Amount Incl. VAT (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي بما في ذلك. ضريبة القيمة المضافة (ريال سعودي) </span></strong>
+                        <strong class="text-nowrap o_total_label m-1">Total Gross Amount Incl. VAT (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي بما في ذلك. ضريبة القيمة المضافة (ريال سعودي) </span></strong>
                     </td>
                     <td class="text-end" colspan="2">
                         <strong class="m-1">
