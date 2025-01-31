@@ -5,7 +5,8 @@ from odoo import models, fields, api
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    arabic_name = fields.Text()
+    arabic_name = fields.Char('Arabic Name')
+    chinese_name = fields.Char('Chinese Name')
     name = fields.Char('Product Name', required=True,  tracking=True)
 
 class CompanyHeaderfootr(models.Model):

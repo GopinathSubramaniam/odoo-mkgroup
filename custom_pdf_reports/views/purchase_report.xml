@@ -62,7 +62,7 @@
 
                 <div class="row justify-content-center mb-4">
                     <div class="col">
-                        <strong><h2 class="mt-2 text-center text-uppercase informations_text" style="font-size: 32px;">Purchase Order</h2></strong>
+                        <strong><h2 class="mt-2 text-center text-uppercase informations_text fw-bold" style="font-size: 32px;">Purchase Order</h2></strong>
                     </div>
                 </div>
 
@@ -109,15 +109,15 @@
 
                 <div class="row">
                     <div class="col-8" style="font-size: 23px;">
-                        <div class="">
+                        <div t-if="o.origin">
                             <strong style="font-size: 21px;">QUOTATION No: </strong>
-                            <span t-if="o.origin" t-field="o.origin" class="px-1"/>
+                            <span t-field="o.origin" class="px-1"/>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-5">
                 
-                    <div class="col-6" style="font-size: 22px;">
+                    <div class="col pe-2">
                         <!-- <p class="mb-4 mt-4">
                             <span>ATTN: </span>
                             <span t-if="o.attn_partner_id" t-field="o.attn_partner_id.name" />
@@ -168,7 +168,7 @@
                             <span style="font-size: 22px;" t-if="o.subject_ref" t-field="o.subject_ref" />
                         </h4> -->
                     </div>
-                    <div class="col-6">
+                    <div class="col ps-2">
                         <!-- <p class="mb-4 mt-4">
                             <span>ATTN: </span>
                             <span t-if="o.attn_partner_id" t-field="o.attn_partner_id.name" />
@@ -346,6 +346,7 @@
                                         </td>
                                         <td id="product_uom_id" class="text-start">
                                             <span t-field="line.product_uom_id.name" groups="uom.group_uom" />
+                                            <!-- <span t-field="line.product_uom.name" groups="uom.group_uom" /> -->
                                         </td>
                                         <td class="text-end">
                                             <span t-field="line.price_unit" />
@@ -448,28 +449,30 @@
                 <!-- Signature Fields -->
                 <t t-set="signature_fields">
                     <div class="row mt-2" style="padding-top:30px;" t-if="o.company_id.approve_sign_img">
-                        <div class="col-1"/>
-                        <div class="col">
+                        <div class="col-4">
                             <!-- <img t-att-src="image_data_uri(doc.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" /> -->
                         </div>
-                        <div class="col-5"/>
+                        <div class="col-4"/>
 
-                        <div class="col">
+                        <div class="col-4 text-center">
                             <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" />
                         </div>
                         <!-- <div class="col"/> -->
                     </div>
                     <div class="row">
-                        <div class="col-1"></div>
-                        <div class="col">
+                        <div class="col-4 h4 text-center">
                             <strong>
-                                <b>Prepared By:</b>
+                                <b>Prepared By</b>
                             </strong>
                         </div>
-                        <div class="col-5"></div>
-                        <div class="col">
+                        <div class="col-4 h4 text-center">
                             <strong>
-                                <b>Authorized Signatory:</b>
+                                <b>Verified By</b>
+                            </strong>
+                        </div>
+                        <div class="col-4 h4 text-center">
+                        <strong>
+                                <b>Procurement Department</b>
                             </strong>
                         </div>
                     </div>
@@ -514,7 +517,7 @@
                     <div class="oe_structure"/>
                     <div class="row justify-content-center mb-5">
                         <div class="col">
-                            <strong><h2 class="mt-2 text-center text-uppercase informations_text" style="font-size: 29px;">REQUEST FOR QUOTATION</h2></strong>
+                            <strong><h2 class="mt-2 text-center text-uppercase informations_text fw-bold" style="font-size: 29px;">REQUEST FOR QUOTATION</h2></strong>
                         </div>
                     </div>
 
@@ -572,7 +575,7 @@
 
                     <div class="row mt-4">
                         <div class="col-8" style="font-size: 25px; color: #bd9311;">
-                            <div t-if="o.name" class="">
+                            <div t-if="o.name" class="fw-bold">
                                 <strong>RFQ No: </strong>
                                 <strong t-field="o.name" class="px-1" style="font-size: 26px;"/>
                             </div>
@@ -675,14 +678,8 @@
                             </div>
                             <div class="col-4"/>
 
-                            <div class="col">
-                                <!-- Stamp Image -->
-                                <span class="text-center" style="padding-left:45px; font-size:19px;">
-                                    <b>Stamp:</b>
-                                </span>
-                            </div>
-                            <!-- <div class="col"/> -->
-
+                            <div class="col"/>
+                                
                         </div>
                     </t>
                 </div>

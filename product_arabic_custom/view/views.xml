@@ -6,9 +6,11 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//h1" position="after">
-                    <h1>
-                        <field name="arabic_name" placeholder="Arabic Name" invisible="0"/>
-                    </h1>
+                    <label for="arabic_name">Product Name in Arabic</label><br/>
+                    <field name="arabic_name" placeholder="Arabic Name" invisible="0"/>
+
+                    <label for="chinese_name">Product Name in Chinese</label><br/>
+                    <field name="chinese_name" placeholder="Chinese Name" invisible="0"/>
                 </xpath>
             </field>
         </record>

@@ -5,32 +5,41 @@
     <template id="custom_document_tax_totals_template">
         <!-- <xpath expr="." position="replace"> -->
 
-            <style> .o_amount{ <!-- font-weight: bold; --> font-size: 15px; } .o_total_label{ font-weight: bold; font-size:
-                15px; } .o_total_words{ color: white !important; font-size: 15px; font-weight: bold;
-                } .o_total_words_bg { background-color: #af7d0c !important; } 
+            <style> 
+                .o_amount{font-size: 15px; } 
+                .o_total_label{ font-weight: bold; font-size:15px; } 
+                .o_total_words{ 
+                    color: white !important; 
+                    font-size: 15px; 
+                    font-weight: bold;
+                } 
+                .o_total_words_bg { 
+                    <!-- background-color: #af7d0c !important;  -->
+                    background-color: #ffce5f !important; 
+                    color: #000000;
+                    font-weight: bold;
+                } 
+
             </style>
             <div>
 
                 <t t-set="same_tax_base" t-value="tax_totals['same_tax_base']" />
                 <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
                     <tr class="o_subtotal">
-                        <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
+                        <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1" class="mr-1">
                             <!-- <span t-out="subtotal['name']">Untaxed Amount</span> -->
                             <span class="o_total_label m-1">Total Gross Amount (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي (ريال سعودي)</span></span>
 
                         </td>
                         <td class="text-end o_amount" colspan="2">
-                            <strong class="m-1">
-
+                            <strong class="m-1 fs-5">
                                 <span t-att-class="oe_subtotal_footer_separator"
                                     t-out="subtotal['base_amount_currency']"
-                                    t-options='{"widget": "float", "precision": 2}'
-                                >
+                                    t-options='{"widget": "float", "precision": 2}'>
                                     27.00</span>
                             </strong>
                         </td>
                     </tr>
-
 
                     <t t-foreach="subtotal['tax_groups']" t-as="tax_group">
                         <tr class="o_taxes">
@@ -44,11 +53,12 @@
 
                                 </td>
                                 <td class="text-end o_price_total" colspan="2">
-                                    <strong class="text-nowrap o_amount m-1"
+                                    <strong class="m-1">
+                                        <span class="fs-5 text-nowrap o_amount"
                                         t-out="tax_group['tax_amount_currency']"
-                                        t-options='{"widget": "float", "precision": 2}'
-                                    >
-                                        1.05</strong>
+                                        t-options='{"widget": "float", "precision": 2}'>
+                                        1.05</span>
+                                    </strong>
                                 </td>
                             </t>
                             <t t-else="">
@@ -57,18 +67,19 @@
                                     <span class="text-nowrap o_total_label m-1">Total VAT Amount 15% (SAR) <span class="lh-sm" dir="rtl">إجمالي مبلغ ضريبة القيمة المضافة %15 (ريال سعودي)</span></span>
 
                                     <span> on </span>
-                                    <strong class="text-nowrap o_amount m-1"
+                                    <strong class="text-nowrap o_amount"
                                         t-out="tax_group['display_base_amount_currency']"
                                         t-options='{"widget": "float", "precision": 2}'
                                     >
                                         27.00</strong>
                                 </td>
                                 <td class="text-end o_price_total o_amount" colspan="2">
-                                    <strong class="text-nowrap m-1"
-                                        t-out="tax_group['tax_amount_currency']"
-                                        t-options='{"widget": "float", "precision": 2}'
-                                    >
-                                        4.05</strong>
+                                    <strong class="m-1">
+                                        <span class="fs-5 text-nowrap"
+                                            t-out="tax_group['tax_amount_currency']"
+                                            t-options='{"widget": "float", "precision": 2}'>
+                                        4.05</span>
+                                    </strong>
                                 </td>
                             </t>
                         </tr>
@@ -89,19 +100,21 @@
                 amount with all taxes-->
                 <tr class="o_total o_total_words_bg">
                     <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
-                        <strong class="text-nowrap o_total_label o_total_words m-1">Total Gross Amount Incl. VAT (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي بما في ذلك. ضريبة القيمة المضافة (ريال سعودي) </span></strong>
+                        <strong class="text-nowrap o_total_label o_total_words_bg m-1">Total Gross Amount Incl. VAT (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي بما في ذلك. ضريبة القيمة المضافة (ريال سعودي) </span></strong>
                     </td>
                     <td class="text-end" colspan="2">
-                        <strong t-out="tax_totals['total_amount_currency']"
-                            class="o_total_words m-1"
-                            t-options='{"widget": "float", "precision": 2}'
-                        >31.05</strong>
+                        <strong class="m-1">
+                            <span t-out="tax_totals['total_amount_currency']"
+                                class="fs-5 o_total_words_bg"
+                                t-options='{"widget": "float", "precision": 2}'
+                            >31.05</span>
+                        </strong>
                     </td>
                 </tr>
 
                 <tr class="o_price_total o_total_words_bg" t-if="show_amount_words">
                     <td t-att-colspan="custom_total_cols if custom_total_cols else 1"
-                        class="o_total_words">
+                        class="o_total_words_bg">
                         <strong class="m-1">Amount in Words : </strong>
                         <!-- </td> -->
                         <!-- <td> -->
@@ -109,9 +122,9 @@
                             t-esc="currency.amount_to_text(tax_totals['total_amount_currency'])"></span>
                     </td>
                 </tr>
-                <tr class="o_price_total o_total_words_bg" t-if="show_amount_words">
+                <tr class="o_price_total" t-if="show_amount_words">
                     <td t-att-colspan="custom_total_cols if custom_total_cols else 1"
-                        class="o_total_words lh-sm text-end" 
+                        class="o_total_words_bg lh-sm text-end" 
                         dir="rtl" 
                         style="font-family: Arial, 'Noto Naskh Arabic', sans-serif; text-align: right;">
                         <strong class="m-1">المبلغ الإجمالي :</strong>
@@ -181,9 +194,9 @@
                                 style="min-height: 100px; width: 930px;" /> -->
                         </div>
                         <div class="text-center text-theme col mt-5">
-                            <h3 style="color: #af7d0c;">
+                            <h2 style="color: #af7d0c;">
                                 <b>TAX INVOICE</b>
-                            </h3>
+                            </h2>
                         </div>
                     </div>
 
@@ -195,45 +208,45 @@
                     <div class="page">
                         <style>
                             .text-theme{
-                            color: #F0B500 !important;
+                                color: #FFCE5F !important;
                             }
 
                             .custom_table th, .custom_table td{
-                            font-size: 15px;
+                                font-size: 15px;
                             }
 
                             .o_total{
-                            background-color: #F0B500 !important
+                                background-color: #FFCE5F !important
                             }
 
                             .o_header_name {
-                            font-size: 26px;
+                                font-size: 26px;
                             }
 
                             .company_details {
-                            font-size: 18px;
+                                font-size: 18px;
                             }
 
                             .table_head{
-                            background-color: #ffc134 !important;
-                            display: table-row-group;
+                                background-color: #ffc134 !important;
+                                display: table-row-group;
                             }
 
                             .table-bordered {
-                            border-collapse: collapse;
-                            width: 100%; /* Optional: Makes the table span the full width of its
-                            container */
+                                border-collapse: collapse;
+                                width: 100%; /* Optional: Makes the table span the full width of its
+                                container */
                             }
 
                             .table-bordered th,
                             .table-bordered td {
-                            border: 1px solid #000; /* Black border */
-                            padding: 8px; /* Adds padding for better readability */
-                            text-align: left; /* Aligns content to the left */
+                                border: 1px solid #000; /* Black border */
+                                padding: 8px; /* Adds padding for better readability */
+                                text-align: left; /* Aligns content to the left */
                             }
 
                             .table-bordered th {
-                            background-color: #ffce5f; /* Light gray background for headers */
+                                background-color: #ffce5f; /* Light gray background for headers */
                             }
 
                         </style>
@@ -423,157 +436,159 @@
                             t-value="any(l.discount for l in o.invoice_line_ids)" />
                         <div class="oe_structure" />
                         <div class="mt-2" style="padding-top:1px;">
-
-                            <table
-                                class="o_has_total_table table o_main_table table-bordered custom_table mt-2"
-                                name="invoice_line_table">
-                                <thead class="table_head">
-                                    <tr>
-                                        <th name="th_index" class="text-center">
-                                            <span class="m-1">#</span>
-                                        </th>
-                                        <th name="th_description" class="text-start">
-                                            <span>DESCRIPTION<br />(منتج)</span>
-                                        </th>
-                                        <th name="th_quantity" class="text-end">
-                                            <span>QTY<br/>(كمية)</span>
-                                        </th>
-                                        <th name="th_unit" class="text-end">
-                                            <span>UNIT<br/>(وحدة)</span>
-                                        </th>
-                                        <th name="th_priceunit"
-                                            t-attf-class="text-center text-nowrap {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                            <span class="text-nowrap">Unit Price<br/>(SAR)<br />(سعر الوحدة)</span>
-                                        </th>
-                                        <th name="th_discount" t-if="display_discount"
+                            <div class="row">
+                                <div class="col">
+                                    <table
+                                        class="o_has_total_table table o_main_table table-bordered custom_table mt-2"
+                                        name="invoice_line_table">
+                                        <thead class="table_head">
+                                            <tr>
+                                                <th name="th_index" class="text-center">
+                                                    <span class="m-1">#</span>
+                                                </th>
+                                                <th name="th_description" class="text-start">
+                                                    <span>DESCRIPTION<br />(منتج)</span>
+                                                </th>
+                                                <th name="th_quantity" class="text-end">
+                                                    <span>QTY<br/>(كمية)</span>
+                                                </th>
+                                                <th name="th_unit" class="text-end">
+                                                    <span>UNIT<br/>(وحدة)</span>
+                                                </th>
+                                                <th name="th_priceunit"
+                                                    t-attf-class="text-center text-nowrap {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                    <span class="text-nowrap">Unit Price<br/>(SAR)<br />(سعر الوحدة)</span>
+                                                </th>
+                                                <th name="th_discount" t-if="display_discount"
+                                                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                    <span>Disc.%</span>
+                                                </th>
+                                                <!-- <th name="th_taxes"
                                             t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                            <span>Disc.%</span>
-                                        </th>
-                                        <!-- <th name="th_taxes"
-                                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                    <span>Taxes</span>
-                                </th> -->
-                                        <th name="th_net_total" class="text-center">
-                                            <span class="text-nowrap">Gross Total<br/>Amount<br/>(SAR)<br />(كمية)</span>
-                                        </th>
-                                        <th name="th_vat" class="text-center">
-                                            <span class="text-nowrap">VAT 15%<br/>(SAR)<br />( الضريبة نسبة)</span>
-                                        </th>
-                                        <th name="th_subtotal" class="text-center">
-                                            <span class="m-1 text-nowrap">Total<br/>Amount Incl.<br/> VAT (SAR)</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="invoice_tbody">
-                                    <t t-set="current_subtotal" t-value="0" />
-                                    <t t-set="current_total" t-value="0" />
-                                    <t t-set="index" t-value="1" />
-                                    <t t-set="lines"
-                                        t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" />
-
-                                    <t t-foreach="lines" t-as="line">
-                                        <t t-set="current_subtotal"
-                                            t-value="current_subtotal + line.price_subtotal" />
-                                        <t t-set="current_total"
-                                            t-value="current_total + line.price_total" />
-
-                                        <tr
-                                            t-att-class="'fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
-                                            <t t-if="line.display_type == 'product'"
-                                                name="account_invoice_line_accountable">
-                                                <td class="text-center">
-                                                    <span class="m-1" t-esc="index" />
-                                                </td>
-                                                <td name="account_invoice_line_name">
-                                                    <span t-if="line.name" t-field="line.name"
-                                                        t-options="{'widget': 'text'}">Bacon Burger</span>
-                                                </td>
-                                                <td name="td_quantity" class="text-end text-nowrap">
-                                                    <span t-if="line.quantity" t-field="line.quantity" t-options="{'widget': 'integer'}">3.00</span>
-                                                </td>
-                                                <td name="td_uom" class="text-end text-nowrap">
-                                                    <span t-field="line.product_uom_id"
-                                                        groups="uom.group_uom">
-                                                        units</span>                                            
-                                                </td>
-                                                <td name="td_price_unit"
-                                                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                                    <span class="text-nowrap" t-esc="'{0:,.2f}'.format(line.price_unit)">
->
-                                                        9.00</span>
-                                                </td>
-                                                <td name="td_discount" t-if="display_discount"
-                                                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                                    <span class="text-nowrap" t-field="line.discount">0</span>
-                                                </td>
-                                                <!-- <t t-set="taxes"
-                                            t-value="', '.join([(tax.invoice_label or tax.name) for tax in line.tax_ids])" /> -->
-
-                                                <!-- <td name="td_taxes"
-                                            t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }} {{
-                                        'text-nowrap' if len(taxes) &lt; 10 else '' }}">
-                                            <span t-out="taxes" id="line_tax_ids">Tax 15%</span>
-                                        </td> -->
-
-                                                <td name="td_subtotal" class="text-end o_price_total">
-                                                    <span class="text-nowrap"
-                                                        t-esc="'{0:,.2f}'.format(line.price_subtotal)">
-                                                        27.00</span>
-                                                </td>
-                                                <td name="td_vat" class="text-end">
-                                                    <span class="text-nowrap"
-                                                        t-esc="'{0:,.2f}'.format(line.line_tax_amount)">
-                                                        27.00</span>
-                                                </td>
-                                                <td name="td_total_amount" class="text-end">
-                                                    <span class="text-nowrap m-1"
-                                                        t-esc="'{0:,.2f}'.format(line.price_total)">
-                                                        27.00</span>
-                                                </td>
-
-                                                <t t-set="index" t-value="index+1" />
-                                            </t>
-                                            <t t-elif="line.display_type == 'line_section'">
-                                                <td colspan="99">
-                                                    <span t-field="line.name"
-                                                        t-options="{'widget': 'text'}">A
-                                                        section title</span>
-                                                </td>
-                                                <t t-set="current_section" t-value="line" />
-                                                <t t-set="current_subtotal" t-value="0" />
-                                            </t>
-                                            <t t-elif="line.display_type == 'line_note'">
-                                                <td colspan="99">
-                                                    <span t-field="line.name"
-                                                        t-options="{'widget': 'text'}">A
-                                                        note, whose content usually applies to the
-                                                        section or
-                                                        product above.</span>
-                                                </td>
-                                            </t>
-                                        </tr>
-
-                                        <t
-                                            t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')">
-                                            <tr class="is-subtotal text-end">
-                                                <td colspan="99">
-                                                    <strong class="mr16">Subtotal</strong>
-                                                    <span t-out="current_subtotal"
-                                                        t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}">
-                                                        31.05</span>
-                                                </td>
+                                            <span>Taxes</span>
+                                        </th> -->
+                                                <th name="th_net_total" class="text-center">
+                                                    <span class="text-nowrap">Gross Total<br/>Amount<br/>(SAR)<br />(كمية)</span>
+                                                </th>
+                                                <th name="th_vat" class="text-center">
+                                                    <span class="text-nowrap">VAT 15%<br/>(SAR)<br />( الضريبة نسبة)</span>
+                                                </th>
+                                                <th name="th_subtotal" class="text-center">
+                                                    <span class="m-1 text-nowrap">Total<br/>Amount Incl.<br/> VAT (SAR)</span>
+                                                </th>
                                             </tr>
-                                        </t>
-                                    </t>
-                                            <t t-if="o.tax_totals"
-                                                t-call="custom_pdf_reports.custom_document_tax_totals_template">
-                                                <t t-set="tax_totals" t-value="o.tax_totals" />
-                                                <t t-set="currency" t-value="o.currency_id" />
-                                                <t t-set="custom_total_cols" t-value="8" />
-                                                <t t-set="show_amount_words" t-value="True" />
+                                        </thead>
+                                        <tbody class="invoice_tbody">
+                                            <t t-set="current_subtotal" t-value="0" />
+                                            <t t-set="current_total" t-value="0" />
+                                            <t t-set="index" t-value="1" />
+                                            <t t-set="lines"
+                                                t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" />
+
+                                            <t t-foreach="lines" t-as="line">
+                                                <t t-set="current_subtotal"
+                                                    t-value="current_subtotal + line.price_subtotal" />
+                                                <t t-set="current_total"
+                                                    t-value="current_total + line.price_total" />
+
+                                                <tr
+                                                    t-att-class="'fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                                    <t t-if="line.display_type == 'product'"
+                                                        name="account_invoice_line_accountable">
+                                                        <td class="text-center">
+                                                            <span class="m-1" t-esc="index" />
+                                                        </td>
+                                                        <td name="account_invoice_line_name">
+                                                            <span t-if="line.name" t-field="line.name"
+                                                                t-options="{'widget': 'text'}">Bacon Burger</span>
+                                                        </td>
+                                                        <td name="td_quantity" class="text-end text-nowrap">
+                                                            <span t-if="line.quantity" t-field="line.quantity" t-options="{'widget': 'integer'}">3.00</span>
+                                                        </td>
+                                                        <td name="td_uom" class="text-end text-nowrap">
+                                                            <span t-field="line.product_uom_id"
+                                                                groups="uom.group_uom">
+                                                                units</span>                                            
+                                                        </td>
+                                                        <td name="td_price_unit"
+                                                            t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                            <span class="text-nowrap" t-esc="'{0:,.2f}'.format(line.price_unit)">
+                                                                9.00</span>
+                                                        </td>
+                                                        <td name="td_discount" t-if="display_discount"
+                                                            t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                            <span class="text-nowrap" t-field="line.discount">0</span>
+                                                        </td>
+                                                        <!-- <t t-set="taxes"
+                                                    t-value="', '.join([(tax.invoice_label or tax.name) for tax in line.tax_ids])" /> -->
+
+                                                        <!-- <td name="td_taxes"
+                                                    t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }} {{
+                                                'text-nowrap' if len(taxes) &lt; 10 else '' }}">
+                                                    <span t-out="taxes" id="line_tax_ids">Tax 15%</span>
+                                                </td> -->
+
+                                                        <td name="td_subtotal" class="text-end o_price_total">
+                                                            <span class="text-nowrap"
+                                                                t-esc="'{0:,.2f}'.format(line.price_subtotal)">
+                                                                27.00</span>
+                                                        </td>
+                                                        <td name="td_vat" class="text-end">
+                                                            <span class="text-nowrap"
+                                                                t-esc="'{0:,.2f}'.format(line.line_tax_amount)">
+                                                                27.00</span>
+                                                        </td>
+                                                        <td name="td_total_amount" class="text-end">
+                                                            <span class="text-nowrap m-1"
+                                                                t-esc="'{0:,.2f}'.format(line.price_total)">
+                                                                27.00</span>
+                                                        </td>
+
+                                                        <t t-set="index" t-value="index+1" />
+                                                    </t>
+                                                    <t t-elif="line.display_type == 'line_section'">
+                                                        <td colspan="99">
+                                                            <span t-field="line.name"
+                                                                t-options="{'widget': 'text'}">A
+                                                                section title</span>
+                                                        </td>
+                                                        <t t-set="current_section" t-value="line" />
+                                                        <t t-set="current_subtotal" t-value="0" />
+                                                    </t>
+                                                    <t t-elif="line.display_type == 'line_note'">
+                                                        <td colspan="99">
+                                                            <span t-field="line.name"
+                                                                t-options="{'widget': 'text'}">A
+                                                                note, whose content usually applies to the
+                                                                section or
+                                                                product above.</span>
+                                                        </td>
+                                                    </t>
+                                                </tr>
+
+                                                <t
+                                                    t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')">
+                                                    <tr class="is-subtotal text-end">
+                                                        <td colspan="99">
+                                                            <strong class="mr16">Subtotal</strong>
+                                                            <span t-out="current_subtotal"
+                                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}">
+                                                                31.05</span>
+                                                        </td>
+                                                    </tr>
+                                                </t>
                                             </t>
-                                </tbody>
-                            </table>
+                                                    <t t-if="o.tax_totals"
+                                                        t-call="custom_pdf_reports.custom_document_tax_totals_template">
+                                                        <t t-set="tax_totals" t-value="o.tax_totals" />
+                                                        <t t-set="currency" t-value="o.currency_id" />
+                                                        <t t-set="custom_total_cols" t-value="8" />
+                                                        <t t-set="show_amount_words" t-value="True" />
+                                                    </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <div id="right-elements"
@@ -806,43 +821,40 @@
                                         alt="Logo" />
                                 </div>
                             </div>
-
                         </div>
-
-
-<!-- Signature Fields -->
-<t t-set="signature_fields">
-    <div class="row mt-2" style="padding-top:30px;" t-if="o.company_id.approve_sign_img">
-        <div class="col-1"/>
-        <div class="col">
-            <!-- <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" /> -->
-        </div>
-        <div class="col text-center">
-            <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px; display: block; margin: 0 auto;" />
-        </div>
-        <div class="col"/>
-    </div>
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col">
-            <span>
-                <b>Prepared By:</b>
-            </span>
-        </div>
-        <div class="col text-center">
-            <!-- Signature Image -->
-            <span>
-                <b>Approved By:</b>
-            </span>
-        </div>
-        <div class="col px-5">
-            <span>
-                <b>Received By:</b>
-            </span>
-        </div>
-    </div>
-</t>
-
+    
+                        <!-- Signature Fields -->
+                        <t t-set="signature_fields">
+                            <div class="row mt-2" style="padding-top:30px;" t-if="o.company_id.approve_sign_img">
+                                <div class="col-1"/>
+                                <div class="col">
+                                    <!-- <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" /> -->
+                                </div>
+                                <div class="col text-center">
+                                    <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px; display: block; margin: 0 auto;" />
+                                </div>
+                                <div class="col"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col">
+                                    <span>
+                                        <b>Prepared By:</b>
+                                    </span>
+                                </div>
+                                <div class="col text-center">
+                                    <!-- Signature Image -->
+                                    <span>
+                                        <b>Approved By:</b>
+                                    </span>
+                                </div>
+                                <div class="col px-5">
+                                    <span>
+                                        <b>Received By:</b>
+                                    </span>
+                                </div>
+                            </div>
+                        </t>
                     </div>
                 </div>
             </t>

@@ -109,7 +109,10 @@
 
         <div
             t-attf-class="footer o_company_#{company.id}_layout {{report_type != 'pdf' and 'mt-auto'}}">
-
+            <div class="text-end text-muted">
+                <div t-if="report_type == 'pdf'">Page <span class="page" /> / <span
+                        class="topage" /></div>
+            </div>
             <div class="o_footer_content d-flex border-top pt-2">
                 <!-- <div class="flex-grow-1 text-start me-2" t-field="company.report_footer" /> -->
                 <!-- <div class="text-end text-muted">
@@ -118,6 +121,7 @@
                     <div t-if="report_type == 'pdf'">Page <span class="page" /> / <span
                             class="topage" /></div>
                 </div> -->
+                
                 <div class="flex-grow-1 text-start me-2">
                     <img class="w-100"
                         t-att-src="image_data_uri(o.company_id.footer_img)"

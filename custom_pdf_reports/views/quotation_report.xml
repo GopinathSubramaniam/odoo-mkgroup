@@ -12,7 +12,11 @@
 
                 <style>
                     .text-theme{
-                    color: #F0B500 !important;
+                        color: #FFCE5F !important;
+                    }
+
+                    .text-theme-2 {
+                        color: #AF7D0C !important;
                     }
 
                     .custom_table th, .custom_table td{
@@ -20,7 +24,7 @@
                     }
 
                     .o_total{
-                    background-color: #F0B500 !important
+                    background-color: #FFCE5F !important
                     }
 
                     .o_header_name {
@@ -53,6 +57,10 @@
                     background-color: #ffce5f; /* Light gray background for headers */
                     }
 
+                    .text-d-theme{
+                        color: #AF7D0C !important;
+                    }
+
                 </style>
                 <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
                 <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat" /> <!-- So that it
@@ -60,7 +68,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col">
-                        <h2 class="mt-2 text-center text-uppercase informations_text" style="font-size: 32px;">
+                        <h2 class="mt-2 text-center text-uppercase informations_text text-d-theme" style="font-size: 32px;">
                             <strong>
                                 <span t-if="env.context.get('proforma', False) or is_pro_forma">
                                     <span t-esc="'Pro-Forma Invoice'" />
@@ -90,7 +98,7 @@
                                     <span t-field="doc.name">SO0000</span>
                                 </h4>
                             </div>
-                            <div t-if="doc.date_order" class="col-6 mb-2" name="">
+                            <div t-if="doc.date_order" class="col-6 mb-2 text-end" name="">
                                 <h4 class="" style="font-size: 25px; color: #af7d0c;">
                                     <span t-if="doc.state in ['draft', 'sent']">
                                         <strong t-esc="'Date: '" />
@@ -124,7 +132,7 @@
                         <h4 style="font-size: 22px;">
                             <u>Customer Details</u>
                         </h4>
-                        <p class="company_details" style="font-size: 21px;">
+                        <p class="company_details text-theme-2" style="font-size: 21px;">
                             <strong style="font-size:25px;">
                                 <span t-esc="o.partner_id.name" />
                             </strong>
@@ -276,6 +284,12 @@
                                         </td>
                                         <td name="td_name">
                                             <span t-field="line.name">Bacon Burger</span>
+                                            <span t-if="line.product_id.arabic_name">
+                                                <br/><span t-field="line.product_id.arabic_name"></span>
+                                            </span>
+                                            <span t-elif="line.product_id.chinese_name">
+                                                <br/><span t-field="line.product_id.chinese_name"></span>
+                                            </span>
                                         </td>
                                         <td name="td_quantity" class="text-center text-nowrap">
                                             <span t-field="line.product_uom_qty" t-options="{'widget': 'integer'}">3</span>
@@ -287,6 +301,7 @@
                                         </td>
                                         <td name="td_uom_id" class="text-center text-nowrap">
                                             <span t-field="line.product_uom_id">units</span>
+                                            <!-- <span t-field="line.product_uom">units</span> -->
                                         </td>
                                         <td name="td_priceunit" class="text-end text-nowrap">
                                             <span t-field="line.price_unit" t-options="{'widget': 'float', 'precision': 2}">3</span>
@@ -300,13 +315,14 @@
                                             t-attf-class="text-end {{ 'text-nowrap' if len(taxes) &lt; 10 else '' }}">
                                             <span t-out="taxes">Tax 15%</span>
                                         </td> -->
-                                        <td name="td_tax_amount" class="text-end o_price_total">
-                                            <span t-field="line.price_tax"
-                                                t-options="{'widget': 'float', 'precision': 2}" />
-                                        </td>
+                                        
                                         <td t-if="not line.is_downpayment" name="td_subtotal"
                                             class="text-end o_price_total">
                                             <span t-field="line.price_subtotal" t-options="{'widget': 'float', 'precision': 2}">27.00</span>
+                                        </td>
+                                        <td name="td_tax_amount" class="text-end o_price_total">
+                                            <span t-field="line.price_tax"
+                                                t-options="{'widget': 'float', 'precision': 2}" />
                                         </td>
                                         <td t-if="not line.is_downpayment" name="td_subtotal"
                                             class="text-end o_price_total">
