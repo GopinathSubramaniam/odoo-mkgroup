@@ -98,7 +98,7 @@
 
                 <!--Total
                 amount with all taxes-->
-                <tr class="o_total o_total_words_bg">
+                <tr class="o_total o_total_words_bg" t-if="o.amount_tax > 0">
                     <td t-att-colspan="custom_total_cols-2 if custom_total_cols else 1">
                         <strong class="text-nowrap o_total_label o_total_words_bg m-1">Total Gross Amount Incl. VAT (SAR) <span class="lh-sm" dir="rtl">إجمالي المبلغ الإجمالي بما في ذلك. ضريبة القيمة المضافة (ريال سعودي) </span></strong>
                     </td>

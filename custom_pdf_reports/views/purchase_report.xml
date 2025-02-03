@@ -617,6 +617,7 @@
                                         </td>
                                         <td class="text-center">
                                             <span t-field="order_line.product_uom_id" groups="uom.group_uom"/>
+                                            <!-- <span t-field="order_line.product_uom" groups="uom.group_uom"/> -->
                                         </td>
                                         <td class="text-center">
                                             <span t-field="order_line.product_id.brand_id"/>
