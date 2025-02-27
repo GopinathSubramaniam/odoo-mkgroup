@@ -474,7 +474,7 @@
                                                     <span class="text-nowrap">VAT 15%<br/>(SAR)<br />( الضريبة نسبة)</span>
                                                 </th>
                                                 <th name="th_subtotal" class="text-center">
-                                                    <span class="m-1 text-nowrap">Total<br/>Amount Incl.<br/> VAT (SAR)</span>
+                                                    <span class="m-1 text-nowrap">Total<br/>Amount Incl.<br/> VAT (SAR) <br/>(المبلغ الإجمالي)</span>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -825,15 +825,15 @@
     
                         <!-- Signature Fields -->
                         <t t-set="signature_fields">
-                            <div class="row mt-2" style="padding-top:30px;" t-if="o.company_id.approve_sign_img">
+                            <div class="row mt-1" style="padding-top:30px;" t-if="o.company_id.approve_sign_img">
                                 <div class="col-1"/>
                                 <div class="col">
                                     <!-- <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px;" /> -->
                                 </div>
                                 <div class="col text-center">
-                                    <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 120px; display: block; margin: 0 auto;" />
+                                    <img t-att-src="image_data_uri(o.company_id.approve_sign_img)" alt="Signature" style="max-width: 140px; display: block; margin: 0 auto;" />
                                 </div>
-                                <div class="col"/>
+                                <div class="col text-center"/>
                             </div>
                             <div class="row">
                                 <div class="col-1"></div>
@@ -848,7 +848,7 @@
                                         <b>Approved By:</b>
                                     </span>
                                 </div>
-                                <div class="col px-5">
+                                <div class="col text-center px-5">
                                     <span>
                                         <b>Received By:</b>
                                     </span>
